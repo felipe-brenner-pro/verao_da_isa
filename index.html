@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Falta quanto pro Verão em POA?</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .sun {
+      font-size: 5rem;
+      margin-bottom: 1.5rem;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #ffd700); }
+      50% { transform: scale(1.1); filter: drop-shadow(0 0 30px #ffd700); }
+    }
+
+    h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: #a8c8ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #5a7fa8;
+      margin-bottom: 3rem;
+    }
+
+    .countdown {
+      display: flex;
+      gap: clamp(1rem, 4vw, 3rem);
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .value {
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(180deg, #ffffff 0%, #ffd700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      min-width: 2ch;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #5a7fa8;
+    }
+
+    .separator {
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 300;
+      color: #2a4a6a;
+      line-height: 1;
+      align-self: flex-start;
+      padding-top: 0;
+    }
+
+    .target-date {
+      font-size: 0.85rem;
+      color: #3a5f80;
+    }
+
+    .arrived {
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-weight: 700;
+      color: #ffd700;
+      text-shadow: 0 0 30px #ffd70080;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="sun">☀️</div>
+  <h1>Contagem regressiva para o próximo verão da Isa</h1>
+
+  <div class="countdown" id="countdown">
+    <div class="unit">
+      <span class="value" id="days">--</span>
+      <span class="label">dias</span>
+    </div>
+    <span class="separator">:</span>
+    <div class="unit">
+      <span class="value" id="hours">--</span>
+      <span class="label">horas</span>
+    </div>
+    <span class="separator">:</span>
+    <div class="unit">
+      <span class="value" id="minutes">--</span>
+      <span class="label">minutos</span>
+    </div>
+    <span class="separator">:</span>
+    <div class="unit">
+      <span class="value" id="seconds">--</span>
+      <span class="label">segundos</span>
+    </div>
+  </div>
+
+
+  <script>
+    function nextSummerSolstice() {
+      const now = new Date();
+      const year = now.getFullYear();
+      // Solstício de verão no hemisfério sul: ~21 de dezembro
+      let target = new Date(year, 11, 21, 0, 0, 0);
+      if (now >= target) {
+        target = new Date(year + 1, 11, 21, 0, 0, 0);
+      }
+      return target;
+    }
+
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function update() {
+      const now = new Date();
+      const target = nextSummerSolstice();
+      const diff = target - now;
+
+if (diff <= 0) {
+        document.getElementById('countdown').innerHTML =
+          '<p class="arrived">O verão chegou! 🌞</p>';
+        return;
+      }
+
+      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent    = days;
+      document.getElementById('hours').textContent   = pad(hours);
+      document.getElementById('minutes').textContent = pad(minutes);
+      document.getElementById('seconds').textContent = pad(seconds);
+    }
+
+    update();
+    setInterval(update, 1000);
+  </script>
+</body>
+</html>
