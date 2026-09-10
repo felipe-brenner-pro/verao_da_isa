@@ -574,20 +574,15 @@ body {
 
 /* ===== celular (retrato): encaixa a cena inteira, ancorada embaixo ===== */
 @media (max-width: 560px) {
-  /* fator de escala da cena + onde fica a borda de cima dela na viewport */
-  :root {
-    --sc: min(calc(100vw / 800px), calc(100vh / 1000px));
-    --scene-top: calc(100vh - 1000px * var(--sc));
-  }
+  /* fator de escala da cena (largura ou altura, o que couber) */
+  :root { --sc: min(calc(100vw / 800px), calc(100vh / 1000px)); }
   html, body {
-    /* o próprio body pinta o céu: acima da cena vai um azul mais fundo e,
-       da borda da cena pra baixo, ele repete EXATAMENTE o gradiente do .sky
-       (que fica transparente) — vira um céu só, sem emenda */
+    /* o céu é UM gradiente só, do topo da tela até a linha do mar:
+       dois pontos apenas = inclinação constante, sem nenhuma quebra.
+       O .sky da cena fica transparente e deixa esse gradiente aparecer. */
     background: linear-gradient(180deg,
-      #1287d6 0,
-      #1fa2ef var(--scene-top),
-      #6fc9f5 calc(var(--scene-top) + 302px * var(--sc)),
-      #c4e9ff calc(var(--scene-top) + 550px * var(--sc)));
+      #0f82cf 0,
+      #c4e9ff calc(100vh - 500px * var(--sc)));
   }
   .scene {
     inset: auto;
