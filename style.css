@@ -1,0 +1,604 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  background: #2aa8f2;
+}
+
+/* ===================== CENA ===================== */
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  min-height: 480px;
+}
+
+.band { position: absolute; left: 0; right: 0; }
+
+.sky {
+  top: 0;
+  height: 55%;
+  background: linear-gradient(180deg, #1fa2ef 0%, #6fc9f5 55%, #c4e9ff 100%);
+}
+
+.sea {
+  top: 50%;
+  height: 25%;
+  background: linear-gradient(180deg, #1f83bd 0%, #0d5c8a 100%);
+}
+.sea::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(255,255,255,.07) 0 2px, transparent 2px 9px);
+  animation: shimmer 3s linear infinite;
+}
+
+.sand {
+  bottom: 0;
+  height: 28%;
+  background: linear-gradient(180deg, #f2dca4 0%, #e6c684 100%);
+}
+.sand::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 26%;
+  background: linear-gradient(180deg, rgba(198,160,102,.55), transparent);
+}
+
+/* warm summer glow around the sun */
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 88% 12%, rgba(255,224,130,.35), transparent 42%);
+}
+
+.shore {
+  position: absolute;
+  left: -2%;
+  width: 104%;
+  top: 68%;
+  height: 9%;
+  animation: lap 6s ease-in-out infinite alternate;
+}
+
+/* corredor sem camisa ao fundo */
+.runner {
+  position: absolute;
+  top: 62%;
+  left: 4%;
+  width: clamp(62px, 9vmin, 110px);
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 0;
+  z-index: 3;
+  animation: shoreRun 20s linear infinite;
+}
+.runner:focus-visible { outline: 3px dashed rgba(255,255,255,.9); outline-offset: 4px; border-radius: 6px; }
+.runner.delivering {
+  top: auto;
+  bottom: 6.5%;
+  left: 0;
+  width: clamp(96px, 17vmin, 156px);
+  z-index: 15;
+  animation: none;
+  cursor: default;
+}
+.runner .rletter { transform-box: view-box; }
+.runner.arrived .thigh-f, .runner.arrived .thigh-b,
+.runner.arrived .shin-f, .runner.arrived .shin-b,
+.runner.arrived .arm-f, .runner.arrived .arm-b,
+.runner.arrived .hair, .runner.arrived .art { animation: none !important; }
+.runner .trombone { transform-box: view-box; transform-origin: 80px 30px; }
+.runner .trombone .tb-slide { transform-box: view-box; }
+.runner .art { display: block; transform-origin: 52% 82%; animation: runBounce .9s ease-in-out infinite; }
+.runner svg { display: block; width: 100%; height: auto; overflow: visible; }
+.runner .thigh-f, .runner .thigh-b, .runner .shin-f, .runner .shin-b,
+.runner .arm-f, .runner .arm-b, .runner .hair { transform-box: view-box; }
+.runner .thigh-f, .runner .thigh-b { transform-origin: 56px 82px; }
+.runner .shin-f, .runner .shin-b { transform-origin: 56px 105px; }
+.runner .arm-f, .runner .arm-b { transform-origin: 52px 37px; }
+.runner .hair { transform-origin: 52px 10px; }
+
+.runner .thigh-f { animation: thighSwing .9s linear infinite; }
+.runner .shin-f  { animation: shinBend .9s linear infinite; }
+.runner .thigh-b { animation: thighSwing .9s linear infinite; animation-delay: -.45s; }
+.runner .shin-b  { animation: shinBend .9s linear infinite; animation-delay: -.45s; }
+.runner .arm-f   { animation: armSwing .9s ease-in-out infinite; }
+.runner .arm-b   { animation: armSwing .9s ease-in-out infinite; animation-delay: -.45s; }
+.runner .hair    { animation: hairFlow .9s ease-in-out infinite alternate; }
+
+/* ciclo de corrida: 0% = pe da frente toca o chao; 30% = impulso pra tras;
+   30-100% = perna no ar com joelho dobrado subindo */
+@keyframes thighSwing {
+  0%   { transform: rotate(-22deg); }
+  15%  { transform: rotate(-4deg); }
+  30%  { transform: rotate(32deg); }
+  45%  { transform: rotate(18deg); }
+  60%  { transform: rotate(-20deg); }
+  72%  { transform: rotate(-42deg); }
+  85%  { transform: rotate(-34deg); }
+  100% { transform: rotate(-22deg); }
+}
+@keyframes shinBend {
+  0%   { transform: rotate(-2deg); }
+  15%  { transform: rotate(12deg); }
+  30%  { transform: rotate(-8deg); }
+  45%  { transform: rotate(66deg); }
+  60%  { transform: rotate(88deg); }
+  72%  { transform: rotate(72deg); }
+  85%  { transform: rotate(32deg); }
+  100% { transform: rotate(-2deg); }
+}
+@keyframes armSwing {
+  0%, 100% { transform: rotate(46deg); }
+  50%      { transform: rotate(-42deg); }
+}
+@keyframes hairFlow {
+  from { transform: rotate(-2deg); }
+  to   { transform: rotate(3deg); }
+}
+@keyframes runBounce {
+  0%, 100% { transform: rotate(-12deg) translateY(1px); }
+  25%      { transform: rotate(-12deg) translateY(-7px); }
+  50%      { transform: rotate(-12deg) translateY(1px); }
+  75%      { transform: rotate(-12deg) translateY(-7px); }
+}
+@keyframes shoreRun {
+  0%   { transform: translateX(-20vw); }
+  58%  { transform: translateX(108vw); }
+  100% { transform: translateX(108vw); }
+}
+
+/* coqueiral decorativo */
+.grove {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 4; /* na frente da areia, da faixa d'água e do mar; atrás dos elementos interativos */
+}
+.palm-bg {
+  position: absolute;
+  width: clamp(120px, 24vmin, 240px);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grovesway 5s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i, 0) * -0.4s);
+}
+.palm-bg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  transform-box: fill-box;
+  transform-origin: 50% 95%;
+}
+.palm-bg svg path,
+.palm-bg svg circle { pointer-events: auto; cursor: pointer; }
+@keyframes grovesway {
+  from { transform: rotate(-1.6deg); }
+  to   { transform: rotate(1.6deg); }
+}
+
+/* faixa de água na linha do horizonte: passa na frente do casco dos barcos */
+.sea-front {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 12%;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(180deg, #1f83bd 0%, #1c78ac 60%, #1a71a1 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
+.sea-front::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(255,255,255,.06) 0 2px, transparent 2px 9px);
+}
+
+/* ===================== ELEMENTOS ===================== */
+.el {
+  position: absolute;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 0;
+  z-index: 5;
+}
+.el:focus-visible { outline: 3px dashed rgba(255,255,255,.9); outline-offset: 4px; border-radius: 6px; }
+.el .art { display: block; width: 100%; }
+.el svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.sun        { width: clamp(80px, 13vmin, 150px); z-index: 4; }
+.cloud      { width: clamp(110px, 20vmin, 220px); animation: cloudfloat var(--t, 28s) ease-in-out infinite; }
+.ufo        { width: clamp(100px, 17vmin, 190px); animation: ufohover 3.4s ease-in-out infinite; }
+.ship       { width: clamp(150px, 23vmin, 250px); animation: boatbob 4s ease-in-out infinite alternate; z-index: 2; }
+.dolphin    { width: clamp(66px, 12vmin, 138px); z-index: 3; animation: swim 15s ease-in-out infinite; } /* na frente do mar, atras dos coqueiros */
+.palm       { width: clamp(120px, 24vmin, 240px); z-index: 6; }
+.sunbather  { width: clamp(100px, 18vmin, 170px); z-index: 5; }
+.sunbather .mouth-smile { opacity: 0; }
+.sunbather .shades { transform-box: fill-box; transform-origin: center; }
+.sunbather .lift-hand { transform-box: fill-box; transform-origin: 60% 100%; }
+.dog        { width: clamp(56px, 10vmin, 104px); }
+.dog .art   { transform-box: fill-box; transform-origin: 50% 100%; }
+.trader     { width: clamp(96px, 18vmin, 185px); z-index: 16; } /* primeiro plano (na frente inclusive do corredor na entrega) */
+.bloco      { width: clamp(180px, 34vmin, 285px); z-index: 5; }
+.bloco .art { transform-box: fill-box; transform-origin: 50% 100%; }
+.bloco .foliao { transform-box: fill-box; transform-origin: 50% 100%; animation: blocostep .5s ease-in-out infinite alternate; }
+.bloco .foliao.dance { animation-name: blocodance; animation-duration: .62s; }
+.bloco svg > g:nth-child(2n) .foliao { animation-delay: -.18s; }
+.bloco svg > g:nth-child(3n) .foliao { animation-delay: -.33s; animation-duration: .56s; }
+.bloco svg > g:nth-child(5n) .foliao { animation-delay: -.09s; animation-duration: .46s; }
+@keyframes blocostep { from { transform: translateY(1px); } to { transform: translateY(-3px); } }
+@keyframes blocodance { from { transform: translateY(0) rotate(-5deg); } to { transform: translateY(-2px) rotate(5deg); } }
+.magicbag   { width: clamp(52px, 9vmin, 96px); z-index: 16; } /* primeiro plano -> profundidade */
+.magicbag .art { transform-box: fill-box; transform-origin: 50% 100%; }
+.magicbag .bag-glow { transform-box: fill-box; transform-origin: center; animation: glowpulse 3s ease-in-out infinite alternate; }
+@keyframes glowpulse { from { opacity: .16; transform: scale(.94); } to { opacity: .34; transform: scale(1.04); } }
+.boombox    { width: clamp(74px, 13vmin, 132px); }
+.boombox .art { transform-box: fill-box; transform-origin: 50% 100%; }
+.boombox .spk { transform-box: fill-box; transform-origin: center; }
+.boombox .eq rect { transform-box: fill-box; transform-origin: 50% 100%; }
+.kite       { width: clamp(38px, 6.5vmin, 72px); animation: bob 4.2s ease-in-out infinite alternate; }
+.kite .kite-tail { transform-box: fill-box; transform-origin: 50% 0; }
+
+.sugarglider {
+  position: absolute;
+  top: 37%;
+  left: 6%;
+  width: clamp(26px, 4.6vmin, 52px);
+  border: 0;
+  background: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 6;
+  animation: sgGlide 9s ease-in-out infinite;
+}
+.sugarglider:focus-visible { outline: 3px dashed rgba(255,255,255,.9); outline-offset: 4px; border-radius: 6px; }
+.sugarglider .art { display: block; animation: sgFloat 2.4s ease-in-out infinite alternate; }
+.sugarglider svg { display: block; width: 100%; height: auto; overflow: visible; }
+.sugarglider .sg-wing { transform-box: fill-box; transform-origin: 50% 50%; }
+.sugarglider .sg-tail { transform-box: fill-box; transform-origin: 50% 3%; animation: sgTail 1.9s ease-in-out infinite alternate; }
+@keyframes sgGlide {
+  0%   { transform: translate(-16vw, -1vh) rotate(-4deg); }
+  12%  { transform: translate(-4vw, 0) rotate(-2deg); }
+  55%  { transform: translate(46vw, 2vh) rotate(3deg); }
+  78%  { transform: translate(104vw, 5vh) rotate(-1deg); }
+  100% { transform: translate(104vw, 5vh) rotate(-1deg); }
+}
+@keyframes sgFloat { from { transform: translateY(-2px); } to { transform: translateY(3px); } }
+@keyframes sgTail { from { transform: rotate(-9deg); } to { transform: rotate(11deg); } }
+
+.sun .rays { transform-box: fill-box; transform-origin: center; animation: spin 44s linear infinite; }
+.ship .crew { transform-box: fill-box; transform-origin: 50% 100%; transform: translateY(34px); }
+.ship .wheel { transform-box: fill-box; transform-origin: center; }
+.ship .flag { transform-box: fill-box; transform-origin: left center; animation: flagsway 2.6s ease-in-out infinite alternate; }
+.ship .flag-cloth { animation: flagflutter 1.1s linear infinite; }
+.ship .sail { animation: sailbillow 3.2s ease-in-out infinite; }
+
+.ufo .art { transform-box: fill-box; transform-origin: 50% 62%; }
+.ufo .glow { opacity: .35; }
+.ufo .head { transform-box: fill-box; transform-origin: 50% 100%; transform: translateY(46px); }
+.ufo .bubble { transform-box: fill-box; transform-origin: 50% 92%; opacity: 0; }
+.ufo .antenna { transform-box: fill-box; transform-origin: 50% 100%; animation: antwiggle 1s ease-in-out infinite alternate; }
+.ufo .lights circle { animation: blink 1.5s steps(1, end) infinite; }
+.ufo .lights circle:nth-child(2) { animation-delay: .3s; }
+.ufo .lights circle:nth-child(3) { animation-delay: .6s; }
+.ufo .lights circle:nth-child(4) { animation-delay: .9s; }
+.ufo .lights circle:nth-child(5) { animation-delay: 1.2s; }
+.dolphin .dolphin-body { transform-box: fill-box; transform-origin: center; animation: wiggle 2.2s ease-in-out infinite alternate; }
+.palm .fronds { transform-box: fill-box; transform-origin: 55% 78%; animation: sway 4s ease-in-out infinite alternate; }
+.dog .tail { transform-box: fill-box; transform-origin: 15% 95%; animation: tailsway 1.8s ease-in-out infinite alternate; }
+.dog .ear-floppy { transform-box: fill-box; transform-origin: 20% 5%; animation: earsway 2.4s ease-in-out infinite alternate; }
+.dog .ear-perky { transform-box: fill-box; transform-origin: 90% 95%; }
+.trader .quote { transform-box: fill-box; transform-origin: 50% 100%; }
+
+/* painel de cotação do camelo */
+.camel-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(8, 22, 38, .46);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.camel-modal.show { opacity: 1; }
+.camel-card {
+  position: relative;
+  width: min(360px, 92vw);
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px 20px 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .32);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #1b2430;
+  transform: translateY(14px) scale(.96);
+  transition: transform .22s cubic-bezier(.3, 1.35, .5, 1);
+}
+.camel-modal.show .camel-card { transform: none; }
+.camel-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: #f0f2f5;
+  color: #5b6672;
+  font-size: 13px;
+  cursor: pointer;
+}
+.camel-close:hover { background: #e4e7eb; }
+.camel-pair { font-size: .78rem; font-weight: 700; letter-spacing: .6px; color: #8a95a3; }
+.camel-price { font-size: 2.1rem; font-weight: 800; letter-spacing: -.5px; margin-top: 6px; }
+.camel-tabs { display: flex; gap: 4px; background: #f0f2f5; border-radius: 10px; padding: 3px; margin: 12px 0 10px; }
+.camel-tab {
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 4px;
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  color: #6b7684;
+  background: transparent;
+  cursor: pointer;
+}
+.camel-tab.active { background: #fff; color: #1b2430; box-shadow: 0 1px 4px rgba(0, 0, 0, .12); }
+.camel-plot { min-height: 128px; }
+.camel-change { font-size: .95rem; font-weight: 700; margin: 0 0 8px; }
+.camel-change.up { color: #1f9d4d; }
+.camel-change.down { color: #d63b3b; }
+.camel-change span { color: #9aa4b0; font-weight: 500; }
+.camel-graph { display: block; width: 100%; height: 128px; }
+.camel-foot { display: flex; justify-content: space-between; font-size: .76rem; color: #9aa4b0; margin-top: 6px; }
+.camel-note { font-size: .72rem; color: #b3bcc6; text-align: center; margin-top: 8px; }
+
+.el:hover .art { filter: brightness(1.05); }
+
+/* ===================== EFEITOS ===================== */
+.fx {
+  position: fixed;
+  pointer-events: none;
+  z-index: 60;
+  will-change: transform, opacity;
+  font-size: 18px;
+  line-height: 1;
+}
+.ripple {
+  position: fixed;
+  pointer-events: none;
+  z-index: 55;
+  width: 54px;
+  height: 54px;
+  border: 3px solid rgba(255,255,255,.85);
+  border-radius: 50%;
+}
+.grain {
+  position: fixed;
+  pointer-events: none;
+  z-index: 55;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d9bd85;
+}
+.pearl {
+  position: fixed;
+  pointer-events: none;
+  z-index: 60;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #ffffff, #ffe3ef 55%, #e7b7c9);
+}
+
+.spring-count {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  width: max-content;
+  max-width: 86%;
+  text-align: center;
+  line-height: 1.35;
+  font-size: clamp(.82rem, 2.5vw, 1.35rem);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: .2px;
+  text-shadow: 0 2px 10px rgba(18, 60, 92, .5), 0 1px 2px rgba(18, 60, 92, .4);
+  pointer-events: none;
+  z-index: 7;
+}
+.spring-count b {
+  font-size: 1.55em;
+  font-weight: 800;
+  color: #ffdf7a;
+  margin: 0 .1em;
+  text-shadow: 0 2px 12px rgba(120, 70, 10, .35), 0 1px 2px rgba(18, 60, 92, .4);
+}
+.spring-count .spring-name { font-weight: 800; white-space: nowrap; }
+
+/* pop-up da carta entregue pelo corredor */
+.letter-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(8, 22, 38, .46);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.letter-modal.show { opacity: 1; }
+.letter-card {
+  position: relative;
+  width: min(320px, 90vw);
+  background: #fdf6e3;
+  border-radius: 10px;
+  padding: 40px 24px 34px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .34);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #4a3b23;
+  text-align: center;
+  transform: translateY(16px) scale(.94) rotate(-1.5deg);
+  transition: transform .26s cubic-bezier(.3, 1.4, .5, 1);
+  border: 1px solid #e6d8b6;
+}
+.letter-modal.show .letter-card { transform: none; }
+.letter-card::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 26px;
+  background: linear-gradient(135deg, #f0e3c0 25%, transparent 25%) -10px 0/20px 26px repeat-x;
+  border-radius: 10px 10px 0 0;
+  opacity: .5;
+}
+.letter-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 8px;
+  background: #efe3c4;
+  color: #8a744a;
+  font-size: 12px;
+  cursor: pointer;
+}
+.letter-close:hover { background: #e6d6ac; }
+.letter-msg {
+  margin: 6px 0 0;
+  font-size: clamp(1.6rem, 6vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: #c0392b;
+}
+.letter-sub { margin: 10px 0 0; font-size: .8rem; color: #a1895e; }
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(0, 40, 70, .28);
+  color: #fff;
+  font-size: clamp(.8rem, 2.4vw, 1rem);
+  letter-spacing: .3px;
+  backdrop-filter: blur(3px);
+  z-index: 8;
+  animation: fade-hint 1s ease 5s forwards;
+}
+
+/* ===================== KEYFRAMES ===================== */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+@keyframes wiggle { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+@keyframes tailsway { from { transform: rotate(-12deg); } to { transform: rotate(16deg); } }
+@keyframes swim {
+  0%   { transform: translateX(-8vw) scaleX(1); }
+  46%  { transform: translateX(24vw) scaleX(1); }
+  50%  { transform: translateX(24vw) scaleX(-1); }
+  96%  { transform: translateX(-8vw) scaleX(-1); }
+  100% { transform: translateX(-8vw) scaleX(1); }
+}
+@keyframes earsway { from { transform: rotate(-5deg); } to { transform: rotate(7deg); } }
+@keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+@keyframes boatbob { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-4px) rotate(2deg); } }
+@keyframes shimmer { to { background-position: 0 9px; } }
+@keyframes lap {
+  from { transform: translateX(-16px) scaleY(1); }
+  to   { transform: translateX(16px) scaleY(1.12); }
+}
+@keyframes cloudfloat {
+  0%   { transform: translate(-10px, 0); }
+  50%  { transform: translate(10px, -7px); }
+  100% { transform: translate(-10px, 0); }
+}
+@keyframes flagsway {
+  from { transform: rotate(-2.5deg) scaleY(.92); }
+  to   { transform: rotate(2.5deg) scaleY(1.05); }
+}
+@keyframes flagflutter {
+  0%, 100% { d: path("M110 6 C 122 4 130 8 140 6 C 147 5 152 9 154 7 C 153 12 154 17 154 21 C 152 19 147 23 140 22 C 130 20 122 24 110 22 Z"); }
+  33%      { d: path("M110 6 C 122 8 130 3 140 8 C 147 10 152 5 154 10 C 153 14 154 15 154 18 C 152 24 147 18 140 20 C 130 25 122 19 110 22 Z"); }
+  66%      { d: path("M110 6 C 122 5 130 9 140 4 C 147 3 152 8 154 5 C 153 11 154 19 154 23 C 152 20 147 25 140 24 C 130 20 122 26 110 22 Z"); }
+}
+@keyframes sailbillow {
+  0%, 100% { d: path("M113 16 C 138 24 156 44 156 60 C 157 74 152 84 152 92 L 113 92 Z"); }
+  33%      { d: path("M113 16 C 135 30 151 40 154 58 C 156 72 156 88 156 92 L 113 92 Z"); }
+  66%      { d: path("M113 16 C 141 22 159 46 153 62 C 151 76 155 86 149 92 L 113 92 Z"); }
+}
+@keyframes ufohover {
+  0%   { transform: translateY(0) rotate(-1.6deg); }
+  50%  { transform: translateY(-11px) rotate(1.6deg); }
+  100% { transform: translateY(0) rotate(-1.6deg); }
+}
+@keyframes antwiggle {
+  from { transform: rotate(-11deg); }
+  to   { transform: rotate(11deg); }
+}
+@keyframes blink {
+  0%, 55%  { opacity: 1; }
+  56%, 100% { opacity: .25; }
+}
+@keyframes fade-hint { to { opacity: 0; visibility: hidden; } }
+
+/* ===== celular (retrato): encaixa a cena inteira, ancorada embaixo ===== */
+@media (max-width: 560px) {
+  html, body { background: #1fa2ef; }          /* = topo do céu, some no letterbox */
+  .scene {
+    inset: auto;
+    left: 50%;
+    bottom: 0;
+    width: 800px;
+    height: 1000px;
+    transform-origin: bottom center;
+    transform: translateX(-50%)
+      scale(min(calc(100vw / 800px), calc(100vh / 1000px)));
+  }
+  /* texto: px fixos no espaço de projeto pra continuar legível após o scale */
+  .spring-count { font-size: 28px; max-width: 96%; }
+  .hint { font-size: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud, .ship, .dog, .ufo, .palm-bg, .dolphin, .kite,
+  .sugarglider, .sugarglider .art, .sugarglider .sg-tail,
+  .runner, .runner .art, .runner .thigh-f, .runner .thigh-b, .runner .shin-f, .runner .shin-b,
+  .runner .arm-f, .runner .arm-b, .runner .hair,
+  .dog .tail, .dog .ear-floppy, .magicbag .bag-glow, .bloco .foliao,
+  .sun .rays, .dolphin .dolphin-body, .palm .fronds, .ship .flag, .ship .flag-cloth, .ship .sail,
+  .ufo .antenna, .ufo .lights circle,
+  .sea::before, .shore, .hint {
+    animation: none !important;
+  }
+}
