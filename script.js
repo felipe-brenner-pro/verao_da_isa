@@ -250,7 +250,7 @@
     }
   });
 
-  /* Contador regressivo para o início do Verão da Isa (hemisfério sul ~21/dez) */
+  /* Contador regressivo para o Verão da Isa (hemisfério sul ~21/dez) */
   (function summerCountdown() {
     const box = document.querySelector(".spring-count");
     if (!box) return;
@@ -272,7 +272,7 @@
         (d === 1 ? "Falta " : "Faltam ") +
         "<b>" + d + "</b> " +
         (d === 1 ? "dia" : "dias") +
-        ' para o início do <span class="spring-name">Verão da Isa</span> ☀️';
+        ' para o <span class="spring-name">Verão da Isa</span> ☀️';
     };
     render();
     setInterval(render, 60 * 60 * 1000);
