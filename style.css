@@ -626,6 +626,15 @@ body {
   .boombox  { width: clamp(74px, 13cqmin, 132px); }
   .kite     { width: clamp(38px, 6.5cqmin, 72px); }
   .sugarglider { width: clamp(26px, 4.6cqmin, 52px); }
+
+  /* pedido do usuário: descer um pouco o navio e o sugar glider —
+     só no celular (a caixa 800x1000 tem mais espaço vertical sobrando
+     ali que a janela do desktop, que já fica justa entre eles e o
+     coqueiral). !important no navio pq a posição dele vem de um
+     style="top:...' inline no HTML (mais específico que qualquer
+     regra do CSS). */
+  .el.ship     { top: 40% !important; }
+  .sugarglider { top: 40%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
