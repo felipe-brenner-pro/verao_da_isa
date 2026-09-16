@@ -592,12 +592,40 @@ body {
     height: 1000px;
     transform-origin: bottom center;
     transform: translateX(-50%) scale(var(--sc));
+    container-type: size;   /* base para os "cqmin" abaixo — ver nota */
   }
   .sky { background: none; }        /* o céu vem do gradiente do body */
   .scene::after { display: none; }  /* vinheta quente criava uma linha no topo da cena */
   /* texto: px fixos no espaço de projeto pra continuar legível após o scale */
   .spring-count { font-size: 28px; max-width: 96%; }
   .hint { font-size: 24px; }
+
+  /* Tamanhos dos elementos: trocar vmin -> cqmin.
+     "vmin" sempre olha pro viewport REAL (375x812), não pro palco virtual
+     de 800x1000 — então cada elemento batia no piso do clamp() de um jeito
+     diferente, e as proporções entre eles ficavam erradas (ex.: o navio
+     "flutuando" acima do mar, o sugar glider muito acima das árvores).
+     "cqmin" olha pro tamanho do PRÓPRIO .scene (o container acima, sempre
+     800x1000 no celular), então cada elemento fica do tamanho pretendido
+     dentro do palco e o scale() encolhe tudo junto, mantendo as proporções
+     idênticas às do desktop. */
+  .runner            { width: clamp(62px, 9cqmin, 110px); }
+  .runner.delivering { width: clamp(96px, 17cqmin, 156px); }
+  .palm-bg  { width: clamp(120px, 24cqmin, 240px); }
+  .sun      { width: clamp(80px, 13cqmin, 150px); }
+  .cloud    { width: clamp(110px, 20cqmin, 220px); }
+  .ufo      { width: clamp(100px, 17cqmin, 190px); }
+  .ship     { width: clamp(150px, 23cqmin, 250px); }
+  .dolphin  { width: clamp(66px, 12cqmin, 138px); }
+  .palm     { width: clamp(120px, 24cqmin, 240px); }
+  .sunbather{ width: clamp(100px, 18cqmin, 170px); }
+  .dog      { width: clamp(56px, 10cqmin, 104px); }
+  .trader   { width: clamp(96px, 18cqmin, 185px); }
+  .bloco    { width: clamp(180px, 34cqmin, 285px); }
+  .magicbag { width: clamp(52px, 9cqmin, 96px); }
+  .boombox  { width: clamp(74px, 13cqmin, 132px); }
+  .kite     { width: clamp(38px, 6.5cqmin, 72px); }
+  .sugarglider { width: clamp(26px, 4.6cqmin, 52px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
