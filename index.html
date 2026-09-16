@@ -29,7 +29,378 @@
     <!-- faixa de água que passa na frente dos barcos (esconde o casco abaixo da linha d'água) -->
     <div class="sea-front" aria-hidden="true"></div>
 
+    <!-- coqueiral decorativo (gerado por script, atrás dos elementos interativos) -->
+    <div class="grove" aria-hidden="true"></div>
+
     <!-- ===================== ELEMENTOS INTERATIVOS ===================== -->
+
+    <!-- Sol -->
+    <button class="el sun" style="top:6%; right:9%" aria-label="Sol">
+      <span class="art">
+        <svg viewBox="0 0 140 140" aria-hidden="true">
+          <g class="rays-wrap">
+            <g class="rays" stroke="#ffcf3f" stroke-width="9" stroke-linecap="round">
+              <line x1="70" y1="4" x2="70" y2="30"/>
+              <line x1="70" y1="4" x2="70" y2="30" transform="rotate(45 70 70)"/>
+              <line x1="70" y1="4" x2="70" y2="30" transform="rotate(90 70 70)"/>
+              <line x1="70" y1="4" x2="70" y2="30" transform="rotate(135 70 70)"/>
+              <line x1="70" y1="4" x2="70" y2="30" transform="rotate(180 70 70)"/>
+              <line x1="70" y1="4" x2="70" y2="30" transform="rotate(225 70 70)"/>
+              <line x1="70" y1="4" x2="70" y2="30" transform="rotate(270 70 70)"/>
+              <line x1="70" y1="4" x2="70" y2="30" transform="rotate(315 70 70)"/>
+            </g>
+          </g>
+          <circle cx="70" cy="70" r="30" fill="#ffd23f"/>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Nuvens -->
+    <button class="el cloud" style="top:9%; left:6%; --t:26s" aria-label="Nuvem">
+      <span class="art">
+        <svg viewBox="0 0 180 100" aria-hidden="true">
+          <g fill="#ffffff">
+            <ellipse cx="55" cy="62" rx="38" ry="26"/>
+            <ellipse cx="95" cy="48" rx="44" ry="32"/>
+            <ellipse cx="130" cy="64" rx="34" ry="24"/>
+            <rect x="45" y="64" width="95" height="28" rx="14"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Disco voador -->
+    <button class="el ufo" style="top:8%; left:24%" aria-label="Disco voador">
+      <span class="art">
+        <svg viewBox="0 0 200 120" aria-hidden="true">
+          <defs>
+            <clipPath id="ufoClip"><rect x="-80" y="-240" width="400" height="312"/></clipPath>
+          </defs>
+
+          <ellipse class="glow" cx="100" cy="102" rx="56" ry="10" fill="#8fe3ff"/>
+
+          <!-- corpo do disco -->
+          <ellipse cx="100" cy="74" rx="88" ry="21" fill="#96a2af"/>
+          <ellipse cx="100" cy="70" rx="82" ry="14" fill="#c3ccd4"/>
+          <ellipse cx="100" cy="74" rx="88" ry="21" fill="none" stroke="#7c8791" stroke-width="2"/>
+
+          <!-- luzes -->
+          <g class="lights" fill="#ffd93f">
+            <circle cx="34" cy="82" r="3.6"/>
+            <circle cx="67" cy="88" r="3.6"/>
+            <circle cx="100" cy="90" r="3.6"/>
+            <circle cx="133" cy="88" r="3.6"/>
+            <circle cx="166" cy="82" r="3.6"/>
+          </g>
+
+          <!-- cúpula -->
+          <path class="dome" d="M64 70 A 44 27 0 0 1 136 70 Z" fill="rgba(140,222,255,.42)"/>
+          <path d="M80 68 A 16 13 0 0 1 94 56" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" opacity=".45"/>
+
+          <!-- tripulação alienígena -->
+          <g clip-path="url(#ufoClip)">
+            <g class="ufonaut" transform="translate(76,72) scale(2)">
+              <g class="head">
+                <rect x="-3" y="-4" width="6" height="6" fill="#e0a878"/>
+                <circle cx="0" cy="-13" r="9" fill="#eab48c"/>
+                <circle cx="-9" cy="-13" r="2.2" fill="#eab48c"/>
+                <circle cx="9" cy="-13" r="2.2" fill="#eab48c"/>
+                <path d="M-9 -18 Q 0 -27 9 -18 Q 6 -22 0 -22 Q -6 -22 -9 -18 Z" fill="#5b4636"/>
+                <path d="M-9 -13 L -11.5 -12.4" stroke="#123f22" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M9 -13 L 11.5 -12.4" stroke="#123f22" stroke-width="1.5" stroke-linecap="round"/>
+                <rect x="-9" y="-16.5" width="18" height="8.5" rx="4.2" fill="#1f8f45"/>
+                <rect x="-9" y="-16.5" width="18" height="8.5" rx="4.2" fill="none" stroke="#123f22" stroke-width="1.4"/>
+                <line x1="-0.2" y1="-16.5" x2="-0.2" y2="-8" stroke="#123f22" stroke-width="1.2"/>
+                <circle cx="-4.5" cy="-13.6" r="1.5" fill="#9dffc0"/>
+                <circle cx="4.5" cy="-13.6" r="1.5" fill="#9dffc0"/>
+                <path d="M-3 -6 Q 0 -3 3 -6" stroke="#7a4b32" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <g class="ufonaut" transform="translate(124,72) scale(2)">
+              <g class="head">
+                <rect x="-3" y="-4" width="6" height="6" fill="#f0b892"/>
+                <circle cx="0" cy="-13" r="9" fill="#f6c4a0"/>
+                <path d="M-9 -11 Q -12 -23 0 -25 Q 12 -23 9 -11 L 9 -7 Q 4 -14 0 -14 Q -4 -14 -9 -7 Z" fill="#6b3a2a"/>
+                <circle cx="-10" cy="-8" r="3.6" fill="#6b3a2a"/>
+                <circle cx="10" cy="-8" r="3.6" fill="#6b3a2a"/>
+                <circle cx="-5" cy="-9.5" r="1.5" fill="#ff9a9a" opacity=".6"/>
+                <circle cx="5" cy="-9.5" r="1.5" fill="#ff9a9a" opacity=".6"/>
+                <circle cx="-3" cy="-13" r="1.3" fill="#2a2a2a"/>
+                <circle cx="3" cy="-13" r="1.3" fill="#2a2a2a"/>
+                <path d="M-2.5 -8 Q 0 -5.5 2.5 -8" stroke="#a24b3a" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+                <path d="M-9 -19 Q 0 -24 9 -19" stroke="#2ecc71" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                <g class="antenna"><path d="M-5 -21 q -2 -6 1 -11" stroke="#27ae60" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="-4" cy="-33" r="2.7" fill="#2ecc71"/></g>
+                <g class="antenna"><path d="M5 -21 q 2 -6 -1 -11" stroke="#27ae60" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="4" cy="-33" r="2.7" fill="#2ecc71"/></g>
+              </g>
+            </g>
+          </g>
+
+          <!-- balões de fala -->
+          <g class="bubble bubble-a">
+            <path d="M82 33 L58 -2 L96 3 Z" fill="#ffffff"/>
+            <rect x="-8" y="-40" width="132" height="44" rx="16" fill="#ffffff"/>
+            <text x="58" y="-9" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="40" font-weight="800" fill="#2a2540">Zip</text>
+          </g>
+          <g class="bubble bubble-b">
+            <path d="M118 33 L104 -2 L142 3 Z" fill="#ffffff"/>
+            <rect x="96" y="-42" width="198" height="46" rx="16" fill="#ffffff"/>
+            <text x="195" y="-10" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="38" font-weight="800" fill="#2a2540">Zip zip</text>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+
+    <!-- Sugar glider (petauro) planando entre os coqueiros — traço de rabisco -->
+    <button class="sugarglider" type="button" aria-label="Sugar glider planando">
+      <span class="art">
+        <svg viewBox="0 0 100 142" aria-hidden="true">
+          <g stroke="#1e1e1e" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+            <!-- cauda longa -->
+            <path class="sg-tail" d="M50 94 C 46 106 55 116 49 128 C 45 136 43 132 46 126" fill="none"/>
+
+            <g class="sg-wing">
+              <!-- patágio sólido (mão -> membrana -> pé -> perna -> corpo -> braço) -->
+              <path d="M13 34 C 2 56 4 90 22 110 C 27 105 33 99 41 92 C 37 78 37 62 34 52 C 25 46 18 40 13 34 Z" fill="#ec86ab"/>
+              <path d="M87 34 C 98 56 96 90 78 110 C 73 105 67 99 59 92 C 63 78 63 62 66 52 C 75 46 82 40 87 34 Z" fill="#ec86ab"/>
+              <!-- mãozinhas -->
+              <g stroke-width="2.3" fill="none">
+                <path d="M13 34 c -3 -3 -6 -2 -5 1 M13 34 c -4 1 -5 4 -2 5 M13 34 c 1 -4 4 -4 4 -1"/>
+                <path d="M87 34 c 3 -3 6 -2 5 1 M87 34 c 4 1 5 4 2 5 M87 34 c -1 -4 -4 -4 -4 -1"/>
+              </g>
+              <!-- pézinhos -->
+              <g stroke-width="2.3" fill="none">
+                <path d="M22 110 c -3 0 -5 3 -2 5 M22 110 c 1 4 4 4 5 1 M22 110 c -3 -2 -6 -1 -5 2"/>
+                <path d="M78 110 c 3 0 5 3 2 5 M78 110 c -1 4 -4 4 -5 1 M78 110 c 3 -2 6 -1 5 2"/>
+              </g>
+            </g>
+
+            <!-- corpo -->
+            <path d="M39 44 C 34 60 34 80 41 92 C 46 98 54 98 59 92 C 66 80 66 60 61 44 Z" fill="#f6a9c6"/>
+            <path d="M44 56 C 42 68 43 80 46 87 C 49 90 51 90 54 87 C 57 80 58 68 56 56 Z" fill="#fbccdd" stroke="none"/>
+
+            <!-- orelhas grandes -->
+            <path d="M31 20 C 23 6 22 -4 30 -3 C 38 0 42 12 40 22 Z" fill="#f6a9c6"/>
+            <path d="M69 20 C 77 6 78 -4 70 -3 C 62 0 58 12 60 22 Z" fill="#f6a9c6"/>
+            <path d="M32 15 C 29 8 29 3 33 5 C 34 10 34 15 33 18 Z" fill="#e0759a" stroke-width="1.6"/>
+            <path d="M68 15 C 71 8 71 3 67 5 C 66 10 66 15 67 18 Z" fill="#e0759a" stroke-width="1.6"/>
+
+            <!-- cabeça -->
+            <path d="M27 27 C 25 11 38 4 50 4 C 62 4 75 11 73 27 C 71 39 62 46 50 46 C 38 46 29 39 27 27 Z" fill="#f6a9c6"/>
+
+            <!-- olhões pretos -->
+            <path d="M32 17 C 44 15 48 22 44 31 C 40 38 32 37 30 28 C 29 22 29 18 32 17 Z" fill="#1e1e1e" stroke="none"/>
+            <path d="M68 17 C 56 15 52 22 56 31 C 60 38 68 37 70 28 C 71 22 71 18 68 17 Z" fill="#1e1e1e" stroke="none"/>
+            <circle cx="39" cy="22" r="1.8" fill="#fff" stroke="none"/>
+            <circle cx="61" cy="22" r="1.8" fill="#fff" stroke="none"/>
+
+            <!-- nariz + boquinha -->
+            <path d="M46 35 L54 35 L50 40 Z" fill="#1e1e1e" stroke="none"/>
+            <path d="M50 40 q -3 3 -5 1 M50 40 q 3 3 5 1" fill="none" stroke-width="2"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+
+
+
+    <!-- Barco pirata -->
+    <button class="el ship" style="top:37.5%; left:54%" aria-label="Barco pirata">
+      <span class="art">
+        <svg viewBox="0 0 220 170" aria-hidden="true">
+          <!-- mastro, vela e bandeira -->
+          <g class="rigging">
+            <rect x="107" y="6" width="5" height="94" fill="#5b3a22"/>
+            <path class="sail" d="M113 16 C 138 24 156 44 156 60 C 157 74 152 84 152 92 L 113 92 Z" fill="#2b2b34"/>
+            <path d="M113 16 L113 92" stroke="#20202a" stroke-width="2"/>
+            <g transform="translate(133,52)" stroke="#e8e8e8" stroke-width="4" stroke-linecap="round">
+              <line x1="-9" y1="9" x2="9" y2="-9"/>
+              <line x1="-9" y1="-9" x2="9" y2="9"/>
+            </g>
+            <circle cx="133" cy="50" r="8" fill="#e8e8e8"/>
+            <circle cx="130" cy="49" r="1.6" fill="#2b2b34"/>
+            <circle cx="136" cy="49" r="1.6" fill="#2b2b34"/>
+            <rect x="130" y="53" width="6" height="4" fill="#2b2b34"/>
+            <g class="flag">
+              <path class="flag-cloth" d="M110 6 C 122 4 130 8 140 6 C 147 5 152 9 154 7 C 153 12 154 17 154 21 C 152 19 147 23 140 22 C 130 20 122 24 110 22 Z" fill="#161616"/>
+              <circle cx="120" cy="13" r="2.3" fill="#e8e8e8"/>
+            </g>
+          </g>
+
+          <!-- casco (traseira) -->
+          <path d="M10 98 H210 L206 116 Q 190 152 150 156 L70 156 Q 30 152 14 116 Z" fill="#6b4630"/>
+
+          <!-- leme -->
+          <g transform="translate(198,86)">
+            <g class="wheel">
+              <circle r="9" fill="none" stroke="#8a5a34" stroke-width="3"/>
+              <g stroke="#8a5a34" stroke-width="2.4" stroke-linecap="round">
+                <line x1="-13" y1="0" x2="13" y2="0"/>
+                <line x1="0" y1="-13" x2="0" y2="13"/>
+                <line x1="-9" y1="-9" x2="9" y2="9"/>
+                <line x1="-9" y1="9" x2="9" y2="-9"/>
+              </g>
+              <circle r="2.4" fill="#5b3a22"/>
+            </g>
+          </g>
+
+          <!-- tripulacao: ratos-piratas -->
+          <g class="crewman" transform="translate(46,100)">
+            <g class="crew">
+              <path d="M6 -15 Q 14 -19 13 -27" fill="none" stroke="#8f8f8f" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M-6 -3 Q -15 -3 -15 -12" fill="none" stroke="#f0b6c8" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M-7 0 Q -8 -13 0 -15 Q 8 -13 7 0 Z" fill="#9a9a9a"/>
+              <circle cx="0" cy="-20" r="6.5" fill="#a6a6a6"/>
+              <circle cx="-5" cy="-26" r="2.7" fill="#a6a6a6"/>
+              <circle cx="5" cy="-26" r="2.7" fill="#a6a6a6"/>
+              <path d="M0 -20 l 6 1.6 l -6 1.6 z" fill="#f0b6c8"/>
+              <circle cx="-2.4" cy="-21" r="1.2" fill="#111"/>
+              <path d="M1 -23.5 h6 v4 h-6 z" fill="#141414"/>
+              <path d="M7 -24.5 L -7 -19.5" stroke="#141414" stroke-width="0.9"/>
+              <path d="M-7 -24 Q 0 -29 7 -24 L 7 -22 Q 0 -26 -7 -22 Z" fill="#c0392b"/>
+              <path d="M-7 -23 l -5 2 l 3 3 z" fill="#a93226"/>
+            </g>
+          </g>
+          <g class="crewman" transform="translate(82,100)">
+            <g class="crew">
+              <path d="M6 -15 Q 14 -19 13 -27" fill="none" stroke="#8f8f8f" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M-6 -3 Q -15 -3 -15 -12" fill="none" stroke="#f0b6c8" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M-7 0 Q -8 -13 0 -15 Q 8 -13 7 0 Z" fill="#8f8f8f"/>
+              <circle cx="0" cy="-20" r="6.5" fill="#9c9c9c"/>
+              <circle cx="-5" cy="-26" r="2.7" fill="#9c9c9c"/>
+              <circle cx="5" cy="-26" r="2.7" fill="#9c9c9c"/>
+              <path d="M0 -20 l 6 1.6 l -6 1.6 z" fill="#f0b6c8"/>
+              <circle cx="-2.4" cy="-21" r="1.2" fill="#111"/>
+              <circle cx="2.6" cy="-21" r="1.2" fill="#111"/>
+              <path d="M-7 -24 Q 0 -30 7 -24 L 7 -21 Q 0 -27 -7 -21 Z" fill="#2f6b3f"/>
+              <path d="M7 -23 l 5 2 l -3 3 z" fill="#255834"/>
+            </g>
+          </g>
+          <g class="crewman" transform="translate(118,100)">
+            <g class="crew">
+              <path d="M6 -15 Q 15 -18 15 -26" fill="none" stroke="#8f8f8f" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M-6 -3 Q -15 -3 -15 -12" fill="none" stroke="#f0b6c8" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M-7 0 Q -8 -13 0 -15 Q 8 -13 7 0 Z" fill="#9a9a9a"/>
+              <circle cx="0" cy="-20" r="6.5" fill="#a6a6a6"/>
+              <circle cx="-5" cy="-26" r="2.7" fill="#a6a6a6"/>
+              <circle cx="5" cy="-26" r="2.7" fill="#a6a6a6"/>
+              <path d="M0 -20 l 6 1.6 l -6 1.6 z" fill="#f0b6c8"/>
+              <circle cx="-2.4" cy="-21" r="1.2" fill="#111"/>
+              <path d="M1 -23.5 h6 v4 h-6 z" fill="#141414"/>
+              <path d="M7 -24.5 L -7 -19.5" stroke="#141414" stroke-width="0.9"/>
+              <path d="M-8 -22 l 16 0 l -2 -4 l -12 0 z" fill="#141414"/>
+              <path d="M-9 -22 l 18 0 l 0 2 l -18 0 z" fill="#3a2b1a"/>
+            </g>
+          </g>
+          <g class="crewman" transform="translate(150,100)">
+            <g class="crew">
+              <path d="M6 -15 Q 14 -19 13 -27" fill="none" stroke="#8f8f8f" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M-6 -3 Q -15 -3 -15 -12" fill="none" stroke="#f0b6c8" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M-7 0 Q -8 -13 0 -15 Q 8 -13 7 0 Z" fill="#949494"/>
+              <circle cx="0" cy="-20" r="6.5" fill="#a0a0a0"/>
+              <circle cx="-5" cy="-26" r="2.7" fill="#a0a0a0"/>
+              <circle cx="5" cy="-26" r="2.7" fill="#a0a0a0"/>
+              <path d="M0 -20 l 6 1.6 l -6 1.6 z" fill="#f0b6c8"/>
+              <circle cx="-2.4" cy="-21" r="1.2" fill="#111"/>
+              <path d="M1 -23.5 h6 v4 h-6 z" fill="#141414"/>
+              <path d="M7 -24.5 L -7 -19.5" stroke="#141414" stroke-width="0.9"/>
+              <path d="M-7 -24 Q 0 -29 7 -24 L 7 -22 Q 0 -26 -7 -22 Z" fill="#c99a2e"/>
+              <path d="M-7 -23 l -5 2 l 3 3 z" fill="#a97f22"/>
+            </g>
+          </g>
+
+          <!-- timoneiro (humano) -->
+          <g class="crewman" transform="translate(182,100)">
+            <g class="crew">
+              <path d="M5 -17 Q 15 -22 15 -31" fill="none" stroke="#e6a877" stroke-width="3.6" stroke-linecap="round"/>
+              <path d="M-8 0 Q -9 -15 0 -18 Q 9 -15 8 0 Z" fill="#3f5c7a"/>
+              <path d="M-8 -6 L 8 -6" stroke="#2c4257" stroke-width="2.4"/>
+              <circle cx="0" cy="-24" r="7" fill="#ecb98f"/>
+              <path d="M-5 -22 Q 0 -12 5 -22 Q 3 -17 0 -16 Q -3 -17 -5 -22 Z" fill="#5b3a22"/>
+              <circle cx="-2.6" cy="-25" r="1.1" fill="#111"/>
+              <circle cx="2.6" cy="-25" r="1.1" fill="#111"/>
+              <path d="M-9 -27 Q 0 -37 9 -27 Q 4 -30 0 -30 Q -4 -30 -9 -27 Z" fill="#26263a"/>
+              <path d="M-10 -27 L 10 -27 L 7 -24 L -7 -24 Z" fill="#1c1c2c"/>
+              <circle cx="0" cy="-30" r="1.8" fill="#eee"/>
+            </g>
+          </g>
+
+          <!-- casco (frente) -->
+          <path d="M8 98 H212 L210 118 H10 Z" fill="#7c4c31"/>
+          <path d="M12 118 H208 L192 150 Q 150 156 110 156 Q 70 156 28 150 Z" fill="#5c3a26"/>
+          <path d="M8 98 H212" stroke="#4a2f1c" stroke-width="5" stroke-linecap="round"/>
+          <g stroke="#69412b" stroke-width="2">
+            <line x1="14" y1="106" x2="206" y2="106"/>
+            <line x1="18" y1="113" x2="202" y2="113"/>
+          </g>
+          <g fill="#3a2417">
+            <circle cx="44" cy="109" r="4"/>
+            <circle cx="150" cy="109" r="4"/>
+            <circle cx="184" cy="109" r="4"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Golfinho -->
+    <button class="el dolphin" style="top:57%; left:28%" aria-label="Golfinho">
+      <span class="art">
+        <svg viewBox="0 0 152 84" aria-hidden="true">
+          <defs>
+            <clipPath id="dolBody">
+              <path d="M146 44 C 138 40 130 38 122 31 C 116 26 110 21 100 20 C 82 16 64 18 56 26 C 44 34 32 44 22 51 C 24 53 26 54 28 55 C 48 61 78 62 106 53 C 122 48 134 46 146 44 Z"/>
+            </clipPath>
+          </defs>
+          <g class="dolphin-body">
+            <g clip-path="url(#dolBody)">
+              <rect x="0" y="0" width="152" height="84" fill="#9ca2a8"/>
+              <!-- capa escura das costas -->
+              <path d="M22 51 C 32 44 44 34 56 26 C 64 18 82 16 100 20 C 110 21 116 26 122 31 C 116 32 108 32 102 33 C 76 38 50 43 28 51 C 26 51 24 51 22 51 Z" fill="#6d747b"/>
+              <!-- barriga clara -->
+              <path d="M20 55 C 34 54 46 50 58 48 C 80 55 104 55 124 46 C 132 43 134 42 134 42 C 120 51 100 57 78 59 C 54 61 30 59 18 65 Z" fill="#f2f4f6"/>
+              <!-- faixa amarela do flanco -->
+              <path d="M26 53 C 48 60 78 60 104 51 C 118 46 126 42 129 41 C 116 49 98 54 76 57 C 52 60 34 59 24 53 Z" fill="#f2dd3f"/>
+            </g>
+            <!-- cauda -->
+            <path d="M22 51 C 15 46 8 42 1 41 C 6 46 10 50 13 52 C 9 57 4 62 2 68 C 9 62 16 57 22 53 C 23 52 23 51 22 51 Z" fill="#5e646b"/>
+            <!-- nadadeira dorsal (falcada) -->
+            <path d="M74 18 C 70 4 62 -3 51 -3 C 58 4 61 12 62 20 C 66 18 70 18 74 18 Z" fill="#6d747b"/>
+            <!-- nadadeira peitoral -->
+            <path d="M84 50 C 80 64 72 76 61 82 C 67 68 72 54 76 46 C 79 47 82 48 84 50 Z" fill="#5e646b"/>
+            <!-- olho -->
+            <circle cx="112" cy="28" r="2.1" fill="#1c1c1c"/>
+            <!-- boca -->
+            <path d="M120 35 Q 132 40 145 40" fill="none" stroke="#4a4f55" stroke-width="1.4" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+
+
+    <!-- Palmeira -->
+    <button class="el palm" style="bottom:18%; left:2%" aria-label="Palmeira">
+      <span class="art">
+        <svg viewBox="0 0 240 340" aria-hidden="true">
+          <path d="M96 340 C 84 240 106 150 122 80 L142 84 C 122 156 108 240 118 340 Z" fill="#a9743f"/>
+          <g class="fronds">
+            <path d="M132 78 C 116 34 120 -6 140 -42 C 152 -2 148 40 132 78 Z" fill="#3faa5a" transform="rotate(-78 132 78)"/>
+            <path d="M132 78 C 116 34 120 -6 140 -42 C 152 -2 148 40 132 78 Z" fill="#3fb063" transform="rotate(-40 132 78)"/>
+            <path d="M132 78 C 116 34 120 -6 140 -42 C 152 -2 148 40 132 78 Z" fill="#37a559" transform="rotate(-4 132 78)"/>
+            <path d="M132 78 C 116 34 120 -6 140 -42 C 152 -2 148 40 132 78 Z" fill="#3fb063" transform="rotate(34 132 78)"/>
+            <path d="M132 78 C 116 34 120 -6 140 -42 C 152 -2 148 40 132 78 Z" fill="#3faa5a" transform="rotate(72 132 78)"/>
+          </g>
+          <g class="coconuts" fill="#6b4423">
+            <circle cx="120" cy="88" r="9"/>
+            <circle cx="138" cy="92" r="9"/>
+            <circle cx="128" cy="102" r="9"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
 
     <!-- Menina de biquíni na cadeira de praia -->
     <button class="el sunbather" style="bottom:7%; left:47%" aria-label="Menina tomando sol na cadeira de praia">
@@ -172,6 +543,392 @@
         </svg>
       </span>
     </button>
+
+    <!-- Cadelinha (poodle + vira-lata) — traço de rabisco -->
+    <button class="el dog" style="bottom:7%; left:33%" aria-label="Cadelinha">
+      <span class="art">
+        <svg viewBox="0 0 140 108" aria-hidden="true">
+          <g fill="none" stroke="#4a423b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <!-- linha do chão -->
+            <path d="M36 93 q 30 4 62 0" stroke-width="1.3" opacity=".45"/>
+
+            <!-- cauda -->
+            <g class="tail">
+              <path d="M100 62 q 15 -3 15 -18 q 0 -6 -5 -8" fill="#fffef9"/>
+              <path d="M110 32 q -6 -3 -9 2 q -2 6 4 8 q 7 1 8 -4 q 1 -4 -3 -6 z" fill="#fffef9"/>
+            </g>
+
+            <!-- corpo -->
+            <path d="M46 74 q -4 -10 0 -20 q -3 -8 3 -14 q 8 -8 20 -7 q 10 -3 20 1 q 10 3 13 12 q 3 7 0 15 q 2 8 -2 13 q -4 3 -7 0 q -4 3 -8 0 q -4 3 -8 0 q -4 3 -8 0 q -4 3 -8 0 q -4 2 -8 -1 z" fill="#fffef9"/>
+
+            <!-- patas -->
+            <g stroke-width="2.1">
+              <path d="M55 76 q -1 6 0 10"/><circle cx="54.5" cy="88" r="2.9" fill="#fffef9"/>
+              <path d="M65 78 q 0 6 0 10"/><circle cx="65" cy="90" r="2.9" fill="#fffef9"/>
+              <path d="M82 78 q 1 6 0 10"/><circle cx="82" cy="90" r="2.9" fill="#fffef9"/>
+              <path d="M92 76 q 2 6 0 10"/><circle cx="92.5" cy="88" r="2.9" fill="#fffef9"/>
+            </g>
+
+            <!-- cabeça -->
+            <path d="M42 28 q 11 -2 16 6 q 4 9 1 19 q -3 9 -14 11 q -11 1 -17 -6 q -5 -9 -2 -19 q 3 -9 16 -11 z" fill="#fffef9"/>
+
+            <!-- orelha em pé (vira-lata) — perto, no alto -->
+            <g class="ear-perky">
+              <path d="M40 27 q -6 -14 -1 -20 q 8 3 11 14 q 0 7 -10 6 z" fill="#fffef9"/>
+            </g>
+
+            <!-- orelha caída em cachos (poodle) — do outro lado, atrás -->
+            <g class="ear-floppy">
+              <path d="M55 27 q 9 1 9 12 q 0 11 -6 14 q -6 -1 -6 -11 q 0 -12 0 -15 q 1 -1 3 0 z" fill="#fffef9"/>
+              <path d="M56 33 q 4 3 3 8" stroke-width="1.2"/>
+              <path d="M55 43 q 3 3 2 7" stroke-width="1.2"/>
+            </g>
+
+            <!-- topete entre as orelhas -->
+            <path d="M36 20 q 3 -6 8 -4 q 4 -5 8 0"/>
+
+            <!-- focinho -->
+            <path d="M23 39 q -7 1 -7 7 q 1 5 8 5 q 4 -1 5 -5" fill="#fffef9"/>
+            <ellipse cx="18.5" cy="44.5" rx="3" ry="2.4" fill="#2a241f" stroke="none"/>
+            <path d="M19.5 49 q 3 4 7 2" stroke-width="1.4"/>
+            <path d="M23 50 q 1 5 -3 7 q -2 -4 1 -7 z" fill="#ef9fac" stroke-width="1.1"/>
+
+            <!-- olhos -->
+            <ellipse cx="35" cy="39" rx="2.5" ry="3.1" fill="#2a241f" stroke="none"/>
+            <circle cx="36" cy="37.6" r="1" fill="#fff" stroke="none"/>
+            <ellipse cx="44" cy="40" rx="2.5" ry="3.1" fill="#2a241f" stroke="none"/>
+            <circle cx="45" cy="38.6" r="1" fill="#fff" stroke="none"/>
+
+            <!-- pelos soltos -->
+            <g stroke-width="1.25">
+              <path d="M38 15 q 2 -3 1 -6"/>
+              <path d="M51 19 q 4 -2 4 -6"/>
+              <path d="M59 29 q 5 -1 7 -4"/>
+              <path d="M61 43 q 5 0 8 -2"/>
+              <path d="M57 57 q 4 2 8 1"/>
+              <path d="M88 42 q 5 -1 9 -3"/>
+              <path d="M95 56 q 5 1 9 -1"/>
+              <path d="M90 70 q 5 3 9 3"/>
+              <path d="M49 70 q -4 3 -8 2"/>
+              <path d="M43 60 q -5 2 -9 1"/>
+              <path d="M29 33 q -4 -1 -7 -4"/>
+            </g>
+
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Negociante de camelos -->
+    <button class="el trader" style="bottom:5%; left:9%" aria-label="Negociante de camelos (cotação)">
+      <span class="art">
+        <svg viewBox="0 0 152 128" aria-hidden="true">
+          <ellipse cx="84" cy="122" rx="64" ry="6" fill="rgba(0,0,0,.10)"/>
+
+          <!-- ===== camelo (dromedário, olhando para o árabe) ===== -->
+          <g transform="translate(9,-1)">
+            <g stroke="#b98a54" stroke-width="5" stroke-linecap="round">
+              <path d="M80 90 L78 117"/>
+              <path d="M92 92 L92 118"/>
+              <path d="M116 90 L118 117"/>
+              <path d="M126 88 L130 115"/>
+            </g>
+            <path d="M132 76 q 8 8 5 17" stroke="#b98a54" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="136" cy="94" r="3" fill="#8a6438"/>
+            <path d="M64 84 C 62 72 74 66 92 66 C 112 64 130 68 132 82 C 133 90 128 94 118 94 L 76 94 C 68 94 65 90 64 84 Z" fill="#d2a86f"/>
+            <path d="M78 68 C 80 38 110 38 112 68 C 100 58 90 58 78 68 Z" fill="#d2a86f"/>
+            <path d="M66 80 C 58 66 53 50 51 38 C 58 39 65 46 69 56 C 73 66 76 74 78 82 Z" fill="#d2a86f"/>
+            <path d="M51 38 C 44 34 38 37 39 44 C 39 49 43 51 47 50 C 45 53 45 57 49 58 C 54 58 58 53 57 46 C 56 40 55 39 51 38 Z" fill="#d2a86f"/>
+            <path d="M52 32 q 5 -7 9 -3 q -2 7 -6 8 Z" fill="#b98a54"/>
+            <ellipse cx="42" cy="52" rx="4.2" ry="4" fill="#e6cca4"/>
+            <circle cx="49" cy="42" r="1.8" fill="#241a12"/>
+            <path d="M47 39 l -2.5 -2 M50 38 l -.5 -2.6" stroke="#241a12" stroke-width="1" stroke-linecap="round"/>
+            <path d="M41 50 q 7 5 15 3" stroke="#7a4a2b" stroke-width="1.8" fill="none"/>
+          </g>
+
+          <!-- corda -->
+          <path d="M62 50 C 55 56 49 61 43 64" stroke="#9a7a4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+          <!-- ===== árabe ===== -->
+          <path d="M23 45 C 17 45 14 47 14 52 L 6 120 L 54 120 L 46 52 C 46 47 43 45 37 45 C 33 41 27 41 23 45 Z" fill="#f4efe3"/>
+          <path d="M20 57 L16 118" stroke="#ddd4c0" stroke-width="2" opacity=".7"/>
+          <path d="M39 56 L43 118" stroke="#ddd4c0" stroke-width="2" opacity=".7"/>
+          <path d="M30 60 L30 118" stroke="#ddd4c0" stroke-width="1.6" opacity=".4"/>
+          <path d="M16 120 q -4 4 -9 4 l 12 0 Z" fill="#c8a06a"/>
+          <path d="M40 120 q 4 4 9 4 l -12 0 Z" fill="#c8a06a"/>
+          <path d="M39 51 C 43 55 43 59 43 63" stroke="#f4efe3" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <circle cx="43" cy="64" r="3" fill="#d9a878"/>
+
+          <!-- keffiyeh (abas laterais, atras da cabeca) -->
+          <path d="M19 26 L15 56 C 17 58 21 58 23 56 L 27 29 Z" fill="#f7f3ea"/>
+          <path d="M43 26 L47 56 C 45 58 41 58 39 56 L 35 29 Z" fill="#f7f3ea"/>
+          <!-- cabeça -->
+          <circle cx="31" cy="29" r="10" fill="#d9a878"/>
+          <!-- keffiyeh (pano sobre o topo) -->
+          <path d="M19 29 C 17 10 45 10 43 29 C 42 24 38 20 31 20 C 24 20 20 24 19 29 Z" fill="#f7f3ea"/>
+          <path d="M22 19 L40 19 M21 24 L41 24" stroke="#d94a3f" stroke-width="1" opacity=".4"/>
+          <!-- agal -->
+          <path d="M20 15 C 24 11 38 11 42 15" stroke="#2b2b2b" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M20 18.4 C 24 14.4 38 14.4 42 18.4" stroke="#2b2b2b" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <!-- barba curta -->
+          <path d="M24 31 C 25 39 37 39 38 31 C 37 35 34 37 31 37 C 28 37 25 35 24 31 Z" fill="#4a382a"/>
+          <circle cx="28" cy="29" r="1.4" fill="#241a12"/>
+          <circle cx="34" cy="29" r="1.4" fill="#241a12"/>
+          <path d="M31 30 l 0 3" stroke="#c78d5e" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- ===== balão de fala constante ===== -->
+          <g class="quote">
+            <rect x="2" y="0" width="42" height="18" rx="5" fill="#ffffff" stroke="#e2e2e2" stroke-width="1"/>
+            <path d="M18 17 L22 24 L26 17 Z" fill="#ffffff"/>
+            <text class="quote-text" x="23" y="13" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="800" fill="#1f9d4d">+2%</text>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Bloco de carnaval -->
+    <button class="el bloco" style="bottom:2%; left:68%" aria-label="Bloco de carnaval">
+      <span class="art">
+        <svg viewBox="0 0 178 204" aria-hidden="true">
+          <!-- ===== fila de trás ===== -->
+          <g transform="translate(22,150) scale(1.42)"><g class="foliao"><!-- surdo, homem -->
+            <path d="M-3 0 l-2 -13 M3 0 l3 -13" stroke="#e0a878" stroke-width="3.6" stroke-linecap="round"/>
+            <rect x="-6" y="-21" width="12" height="7" rx="2" fill="#e64bd0"/>
+            <path d="M-4 -21 q4 3 8 0 l-1 -12 q-3 2 -6 0z" fill="#e0a878"/>
+            <circle cx="1" cy="-39" r="5.4" fill="#e0a878"/>
+            <path d="M-4 -41 q5 -6 11 -1 q-5 -3 -11 1z" fill="#5b3a22"/>
+            <ellipse cx="-2" cy="-15" rx="10" ry="11" fill="#f2e8d4" stroke="#c99a2e" stroke-width="2"/>
+            <path d="M-12 -15 a10 11 0 0 1 20 0" fill="none" stroke="#2b6fb0" stroke-width="2"/>
+            <path d="M-10 -28 q9 -6 18 1" stroke="#333" stroke-width="2" fill="none"/>
+            <path d="M7 -26 l7 -5" stroke="#8a5a34" stroke-width="2" stroke-linecap="round"/><circle cx="15" cy="-32" r="2.4" fill="#e8e8e8"/>
+            <path d="M-4 -28 q-4 5 -2 11" stroke="#e0a878" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(48,150) scale(1.42)"><g class="foliao dance"><!-- dançarino -->
+            <path d="M-4 0 l-5 -11 M3 -1 l6 -11" stroke="#c68a5e" stroke-width="3.6" stroke-linecap="round"/>
+            <rect x="-6" y="-21" width="12" height="7" rx="2" fill="#2b8fd8"/>
+            <path d="M-4 -21 q4 3 8 0 l-1 -12 q-3 2 -6 0z" fill="#c68a5e"/>
+            <circle cx="0" cy="-39" r="5.2" fill="#c68a5e"/>
+            <path d="M-5 -41 q5 -6 11 -1 q-5 -3 -11 1z" fill="#2b2018"/>
+            <path d="M-4 -31 q-7 -2 -9 -9 M4 -31 q7 -2 9 -9" stroke="#c68a5e" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(74,150) scale(1.42)"><g class="foliao"><!-- trombone, mulher -->
+            <path d="M-3 0 l-2 -13 M3 0 l3 -13" stroke="#e0a878" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M-5 -21 q5 4 10 0 l-1 5 q-4 2 -8 0z" fill="#ff4f9d"/>
+            <path d="M-4 -22 q4 3 8 0 l-1 -11 q-3 2 -6 0z" fill="#e0a878"/>
+            <path d="M-4 -32 l3 3 M4 -32 l-3 3" stroke="#ff4f9d" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="0" cy="-39" r="5" fill="#e0a878"/>
+            <path d="M-6 -41 q5 -6 12 -1 q-1 8 0 12 q-6 -8 -12 -4z" fill="#3a2a1e"/>
+            <path d="M3 -37 h14" stroke="#e6b23c" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M17 -41 q5 0 6 4 q-1 4 -6 4z" fill="#f2c94c"/>
+            <path d="M-3 -31 q5 4 8 2 M3 -31 q7 4 11 2" stroke="#e0a878" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(100,150) scale(1.42)"><g class="foliao dance"><!-- dançarina -->
+            <path d="M-3 0 l-4 -12 M3 -1 l5 -12" stroke="#e0a878" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M-5 -21 q5 4 10 0 l-1 5 q-4 2 -8 0z" fill="#ffd23f"/>
+            <path d="M-4 -22 q4 3 8 0 l-1 -11 q-3 2 -6 0z" fill="#e0a878"/>
+            <path d="M-4 -32 l3 3 M4 -32 l-3 3" stroke="#ffd23f" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="0" cy="-39" r="5" fill="#e0a878"/>
+            <path d="M-6 -41 q4 -7 12 -2 q-1 9 0 13 q-6 -9 -12 -4z" fill="#3a2a1e"/>
+            <path d="M-4 -31 q-7 -2 -9 -10 M4 -31 q7 -2 9 -10" stroke="#e0a878" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(126,150) scale(1.42)"><g class="foliao"><!-- trompete, homem -->
+            <path d="M-3 0 l-2 -13 M3 0 l3 -13" stroke="#c68a5e" stroke-width="3.6" stroke-linecap="round"/>
+            <rect x="-6" y="-21" width="12" height="7" rx="2" fill="#ffd23f"/>
+            <path d="M-4 -21 q4 3 8 0 l-1 -12 q-3 2 -6 0z" fill="#c68a5e"/>
+            <circle cx="0" cy="-39" r="5.2" fill="#c68a5e"/>
+            <path d="M-5 -41 q5 -6 11 -1 q-5 -3 -11 1z" fill="#2b2018"/>
+            <path d="M3 -37 h8" stroke="#e6b23c" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M11 -40 q4 0 4 3 q0 3 -4 3z" fill="#f2c94c"/>
+            <path d="M-3 -30 q4 3 6 1 M3 -31 q4 3 7 1" stroke="#c68a5e" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          </g></g>
+
+          <!-- ===== fila do meio ===== -->
+          <g transform="translate(34,172) scale(1.6)"><g class="foliao"><!-- trombone, homem -->
+            <path d="M-3 0 l-2 -15 M3 0 l3 -15" stroke="#c68a5e" stroke-width="3.8" stroke-linecap="round"/>
+            <rect x="-6" y="-24" width="12" height="8" rx="2" fill="#ff8f3f"/>
+            <path d="M-4 -24 q4 3 8 0 l-1 -13 q-3 2 -6 0z" fill="#c68a5e"/>
+            <circle cx="0" cy="-43" r="5.8" fill="#c68a5e"/>
+            <path d="M-5 -44 q5 -6 11 -1 q-5 -3 -11 1z" fill="#2b2018"/>
+            <path d="M3 -41 h16" stroke="#e6b23c" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M5 -38 h13 q3 0 3 3 h-16" stroke="#c9962a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M19 -45 q5 0 6 4 q-1 4 -6 4z" fill="#f2c94c"/>
+            <path d="M-3 -34 q5 4 8 2 M3 -34 q7 4 11 2" stroke="#c68a5e" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(60,172) scale(1.6)"><g class="foliao dance"><!-- dançarina -->
+            <path d="M-3 0 l-4 -12 M3 -1 l5 -12" stroke="#9c6b45" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M-5 -21 q5 4 10 0 l-1 5 q-4 2 -8 0z" fill="#ff7a3f"/>
+            <path d="M-4 -22 q4 3 8 0 l-1 -11 q-3 2 -6 0z" fill="#9c6b45"/>
+            <path d="M-4 -32 l3 3 M4 -32 l-3 3" stroke="#ff7a3f" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="0" cy="-39" r="5" fill="#9c6b45"/>
+            <path d="M-6 -41 q4 -7 12 -2 q-1 8 0 12 q-6 -8 -12 -4z" fill="#1c1c1c"/>
+            <path d="M-4 -31 q-7 -2 -9 -10 M4 -31 q7 -2 9 -10" stroke="#9c6b45" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(86,172) scale(1.6)"><g class="foliao"><!-- agogô, mulher -->
+            <path d="M-3 0 l-2 -14 M3 0 l3 -14" stroke="#e0a878" stroke-width="3.8" stroke-linecap="round"/>
+            <path d="M-5 -23 q5 4 10 0 l-1 6 q-4 2 -8 0z" fill="#00c2b8"/>
+            <path d="M-4 -24 q4 3 8 0 l-1 -12 q-3 2 -6 0z" fill="#e0a878"/>
+            <path d="M-4 -35 l3 3 M4 -35 l-3 3" stroke="#00c2b8" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="0" cy="-42" r="5.4" fill="#e0a878"/>
+            <path d="M-6 -44 q5 -6 12 -1 q-1 7 0 11 q-6 -7 -12 -3z" fill="#c98f3a"/>
+            <path d="M-12 -29 l-1 8 M-8 -30 l0 9" stroke="#e6b23c" stroke-width="3" stroke-linecap="round"/>
+            <path d="M4 -31 l10 -3" stroke="#8a5a34" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M-4 -31 q-5 3 -7 9 M3 -32 q6 2 9 0" stroke="#e0a878" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(112,172) scale(1.6)"><g class="foliao dance"><!-- dançarino -->
+            <path d="M-4 0 l-5 -12 M3 -2 l6 -12" stroke="#e0a878" stroke-width="3.8" stroke-linecap="round"/>
+            <rect x="-6" y="-23" width="12" height="8" rx="2" fill="#3fd07a"/>
+            <path d="M-4 -23 q4 3 8 0 l-1 -13 q-3 2 -6 0z" fill="#e0a878"/>
+            <circle cx="0" cy="-42" r="5.6" fill="#e0a878"/>
+            <path d="M-5 -44 q5 -6 11 -1 q-5 -3 -11 1z" fill="#5b3a22"/>
+            <path d="M-4 -34 q-8 0 -10 -7 M4 -34 q8 2 9 -6" stroke="#e0a878" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(138,172) scale(1.6)"><g class="foliao"><!-- trompete, mulher -->
+            <path d="M-3 0 l-2 -13 M3 0 l3 -13" stroke="#9c6b45" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M-5 -21 q5 4 10 0 l-1 5 q-4 2 -8 0z" fill="#a15cff"/>
+            <path d="M-4 -22 q4 3 8 0 l-1 -11 q-3 2 -6 0z" fill="#9c6b45"/>
+            <path d="M-4 -32 l3 3 M4 -32 l-3 3" stroke="#a15cff" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="0" cy="-39" r="5" fill="#9c6b45"/>
+            <path d="M-6 -41 q5 -6 12 -1 q-1 7 0 10 q-6 -6 -12 -3z" fill="#1c1c1c"/>
+            <path d="M3 -38 h8" stroke="#e6b23c" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M11 -41 q4 0 4 3 q0 3 -4 3z" fill="#f2c94c"/>
+            <path d="M-3 -31 q4 3 6 1 M3 -32 q4 3 7 1" stroke="#9c6b45" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          </g></g>
+
+          <!-- ===== fila da frente (tamanho da moça) ===== -->
+          <g transform="translate(28,192) scale(1.82)"><g class="foliao"><!-- sax, homem -->
+            <path d="M-3 0 l-2 -15 M3 0 l3 -15" stroke="#e0a878" stroke-width="3.8" stroke-linecap="round"/>
+            <rect x="-6" y="-24" width="12" height="8" rx="2" fill="#2b8fd8"/>
+            <path d="M-4 -24 q4 3 8 0 l-1 -13 q-3 2 -6 0z" fill="#e0a878"/>
+            <circle cx="1" cy="-43" r="5.8" fill="#e0a878"/>
+            <path d="M-4 -44 q5 -6 11 -1 q-5 -3 -11 1z" fill="#2b2018"/>
+            <path d="M3 -40 q8 3 9 14 q1 6 6 8" fill="none" stroke="#e6b23c" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M17 -13 q6 1 6 -6 q0 -4 -5 -4 q-5 0 -5 5 q0 4 4 5z" fill="#f2c94c"/>
+            <path d="M-3 -33 q5 5 8 2 M4 -32 q6 6 10 3" stroke="#e0a878" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(58,192) scale(1.82)"><g class="foliao"><!-- surdo, homem -->
+            <path d="M-3 0 l-2 -15 M3 0 l3 -15" stroke="#c68a5e" stroke-width="3.8" stroke-linecap="round"/>
+            <rect x="-6" y="-24" width="12" height="8" rx="2" fill="#ff5a5f"/>
+            <path d="M-4 -24 q4 3 8 0 l-1 -13 q-3 2 -6 0z" fill="#c68a5e"/>
+            <circle cx="1" cy="-43" r="5.8" fill="#c68a5e"/>
+            <path d="M-4 -45 q5 -6 11 -2 q0 4 1 7 q-6 -6 -12 -5z" fill="#1c1c1c"/>
+            <ellipse cx="-2" cy="-16" rx="11" ry="12" fill="#f2e8d4" stroke="#c99a2e" stroke-width="2"/>
+            <path d="M-13 -16 a11 12 0 0 1 22 0" fill="none" stroke="#2b6fb0" stroke-width="2"/>
+            <path d="M-11 -31 q10 -6 20 1" stroke="#333" stroke-width="2.2" fill="none"/>
+            <path d="M8 -29 l7 -5" stroke="#8a5a34" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="-35" r="2.8" fill="#e8e8e8"/>
+            <path d="M-4 -31 q-4 6 -2 13" stroke="#c68a5e" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(88,192) scale(1.82)"><g class="foliao"><!-- caixa, mulher -->
+            <path d="M-3 0 l-2 -14 M3 0 l3 -14" stroke="#9c6b45" stroke-width="3.8" stroke-linecap="round"/>
+            <path d="M-5 -23 q5 4 10 0 l-1 6 q-4 2 -8 0z" fill="#ffd23f"/>
+            <path d="M-4 -24 q4 3 8 0 l-1 -12 q-3 2 -6 0z" fill="#9c6b45"/>
+            <path d="M-4 -35 l3 3 M4 -35 l-3 3" stroke="#ffd23f" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="0" cy="-42" r="5.4" fill="#9c6b45"/>
+            <path d="M-5 -44 q5 -6 11 -1 q-5 -3 -11 1z" fill="#1c1c1c"/>
+            <ellipse cx="0" cy="-17" rx="8.5" ry="3.6" fill="#e8e8e8" stroke="#b94b3a" stroke-width="1.6"/>
+            <rect x="-8.5" y="-17" width="17" height="5" fill="#dcdcdc"/>
+            <ellipse cx="0" cy="-12" rx="8.5" ry="3.4" fill="#cfcfcf"/>
+            <path d="M-7 -25 l-4 -6 M7 -25 l4 -6" stroke="#c9a06a" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M-4 -31 q-3 4 -4 9 M4 -31 q3 4 4 9" stroke="#9c6b45" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          </g></g>
+          <g transform="translate(118,192) scale(1.82)"><g class="foliao dance"><!-- dançarina -->
+            <path d="M-3 0 l-4 -13 M3 -1 l5 -13" stroke="#e0a878" stroke-width="3.8" stroke-linecap="round"/>
+            <path d="M-5 -23 q5 4 10 0 l-1 5 q-4 2 -8 0z" fill="#ff4f9d"/>
+            <path d="M-4 -24 q4 3 8 0 l-1 -12 q-3 2 -6 0z" fill="#e0a878"/>
+            <path d="M-4 -35 l3 3 M4 -35 l-3 3" stroke="#ff4f9d" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="0" cy="-42" r="5.4" fill="#e0a878"/>
+            <path d="M-6 -44 q4 -7 12 -2 q-1 8 0 13 q-6 -8 -12 -4z" fill="#3a2a1e"/>
+            <path d="M-4 -34 q-7 -2 -9 -11 M4 -34 q7 -2 9 -11" stroke="#e0a878" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          </g></g>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Bolsa mágica -->
+    <button class="el magicbag" style="bottom:5%; left:44%" aria-label="Bolsa mágica">
+      <span class="art">
+        <svg viewBox="0 0 112 106" aria-hidden="true">
+          <ellipse class="bag-glow" cx="56" cy="68" rx="50" ry="42" fill="#ffd7a8" opacity=".2"/>
+          <!-- alça -->
+          <path d="M35 39 C 33 7 81 7 79 39 L70 39 C 71 20 43 20 44 39 Z" fill="#ef7d3d" stroke="#243456" stroke-width="2.6" stroke-linejoin="round"/>
+          <!-- corpo -->
+          <rect x="13" y="37" width="86" height="61" rx="14" fill="#e63d2c" stroke="#243456" stroke-width="2.8"/>
+          <!-- brilho -->
+          <path d="M25 47 C 21 63 23 84 34 94 C 26 84 25 63 32 47 Z" fill="#f76a4f" opacity=".7"/>
+          <!-- faixa dourada vertical -->
+          <rect x="49" y="37" width="14" height="61" fill="#f4b21b"/>
+          <!-- aba -->
+          <path d="M14 44 H98 V58 C98 65 93 69 85 69 H27 C19 69 14 65 14 58 Z" fill="#d63a2a" stroke="#243456" stroke-width="2.8" stroke-linejoin="round"/>
+          <rect x="49" y="44" width="14" height="25" fill="#f4b21b"/>
+          <!-- fecho dourado -->
+          <rect x="46.5" y="58" width="19" height="16" rx="4" fill="#f8c62c" stroke="#243456" stroke-width="2.2"/>
+          <rect x="52.5" y="63.5" width="7" height="7" rx="2" fill="#dca61e"/>
+          <!-- reflexos -->
+          <path d="M28 47 q 5 -3 10 -2" stroke="#ffdccf" stroke-width="2.6" fill="none" opacity=".55" stroke-linecap="round"/>
+          <circle cx="32" cy="52" r="3" fill="#ffdccf" opacity=".8"/>
+        </svg>
+      </span>
+    </button>
+
+
+    <!-- Aparelho de som -->
+    <button class="el boombox" style="bottom:5%; left:57%" aria-label="Aparelho de som">
+      <span class="art">
+        <svg viewBox="0 0 150 96" aria-hidden="true">
+          <path d="M45 15 Q 75 -7 105 15" fill="none" stroke="#3a3a42" stroke-width="6" stroke-linecap="round"/>
+          <rect x="9" y="16" width="132" height="67" rx="8" fill="#33333c"/>
+          <rect x="9" y="16" width="132" height="67" rx="8" fill="none" stroke="#22222a" stroke-width="2"/>
+          <rect x="24" y="83" width="13" height="6" rx="2" fill="#20202a"/>
+          <rect x="113" y="83" width="13" height="6" rx="2" fill="#20202a"/>
+          <!-- painel central -->
+          <rect x="57" y="23" width="36" height="37" rx="3" fill="#1c1c22"/>
+          <rect x="60" y="26" width="30" height="11" rx="2" fill="#3f6f92"/>
+          <g class="eq" fill="#4ee08a">
+            <rect x="62" y="30" width="3.4" height="5"/>
+            <rect x="67.5" y="30" width="3.4" height="5"/>
+            <rect x="73" y="30" width="3.4" height="5"/>
+            <rect x="78.5" y="30" width="3.4" height="5"/>
+            <rect x="84" y="30" width="3.4" height="5"/>
+          </g>
+          <circle cx="64" cy="46" r="3" fill="#9aa0a8"/>
+          <circle cx="75" cy="46" r="3" fill="#9aa0a8"/>
+          <circle cx="86" cy="46" r="3" fill="#e15c47"/>
+          <rect x="60" y="53" width="30" height="5" rx="2.5" fill="#44444e"/>
+          <!-- alto-falantes -->
+          <g class="spk spk-l">
+            <circle cx="32" cy="50" r="19" fill="#1c1c22"/>
+            <circle cx="32" cy="50" r="19" fill="none" stroke="#4a4a54" stroke-width="2"/>
+            <circle cx="32" cy="50" r="12" fill="#3a3a44"/>
+            <circle cx="32" cy="50" r="4.5" fill="#5c5c68"/>
+          </g>
+          <g class="spk spk-r">
+            <circle cx="118" cy="50" r="19" fill="#1c1c22"/>
+            <circle cx="118" cy="50" r="19" fill="none" stroke="#4a4a54" stroke-width="2"/>
+            <circle cx="118" cy="50" r="12" fill="#3a3a44"/>
+            <circle cx="118" cy="50" r="4.5" fill="#5c5c68"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Pipa -->
+    <button class="el kite" style="top:8%; left:74%" aria-label="Pipa">
+      <span class="art">
+        <svg viewBox="0 0 96 150" aria-hidden="true">
+          <path d="M48 4 L84 46 L48 100 L12 46 Z" fill="#ff5a5f"/>
+          <path d="M12 46 L48 30 L84 46 L48 62 Z" fill="#ffd23f"/>
+          <path d="M48 4 L48 100 M12 46 L84 46" stroke="#d84a44" stroke-width="2"/>
+          <path d="M48 4 L84 46 L48 100 L12 46 Z" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+          <path class="kite-tail" d="M48 100 q -10 12 2 20 q 12 8 0 20 q -12 12 2 22" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round"/>
+          <g fill="#3fa7ff">
+            <path d="M46 116 l 7 4 l -7 4 l -7 -4 z"/>
+            <path d="M48 140 l 7 4 l -7 4 l -7 -4 z"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+
+
 
     <p class="hint" id="hint">toque nos elementos da praia&nbsp;✦</p>
   </div>
