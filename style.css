@@ -226,7 +226,6 @@ body {
 .el svg { display: block; width: 100%; height: auto; overflow: visible; }
 
 .sun        { width: clamp(80px, 13vmin, 150px); z-index: 4; }
-.cloud      { width: clamp(110px, 20vmin, 220px); animation: cloudfloat var(--t, 28s) ease-in-out infinite; }
 .ufo        { width: clamp(100px, 17vmin, 190px); animation: ufohover 3.4s ease-in-out infinite; }
 .ship       { width: clamp(150px, 23vmin, 250px); animation: boatbob 4s ease-in-out infinite alternate; z-index: 2; }
 .dolphin    { width: clamp(66px, 12vmin, 138px); z-index: 3; animation: swim 15s ease-in-out infinite; } /* na frente do mar, atras dos coqueiros */
@@ -255,8 +254,69 @@ body {
 .boombox .art { transform-box: fill-box; transform-origin: 50% 100%; }
 .boombox .spk { transform-box: fill-box; transform-origin: center; }
 .boombox .eq rect { transform-box: fill-box; transform-origin: 50% 100%; }
-.kite       { width: clamp(38px, 6.5vmin, 72px); animation: bob 4.2s ease-in-out infinite alternate; }
-.kite .kite-tail { transform-box: fill-box; transform-origin: 50% 0; }
+.truck      { width: clamp(70px, 12vmin, 150px); }
+.truck-wheel { transform-box: fill-box; transform-origin: center; }
+
+/* estrelas do teto: no céu; z-index acima de nuvem/disco voador (5) só pra as estrelas ficarem clicáveis mesmo quando eles passam por cima; só elas recebem clique */
+.stars      { width: clamp(50px, 9vmin, 100px); z-index: 6; pointer-events: none; }
+.stars .art, .stars svg { pointer-events: none; }
+.stars svg  { filter: drop-shadow(0 0 2px rgba(255, 255, 215, .9)); }
+.stars .star-hit { fill: transparent; pointer-events: all; cursor: pointer; }
+.stars .star-sprite {
+  fill: #f5f2c4;
+  stroke: rgba(255, 255, 255, .75);
+  stroke-width: 1.6;
+  animation: twinkle 3.2s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+.stars .star13 { opacity: 0; }
+.stars .star13-in { transform-box: fill-box; transform-origin: center; }
+@keyframes twinkle { 0%, 100% { opacity: .72; } 50% { opacity: 1; } }
+
+/* barrinha de vida vertical (+ / −); só os dois botões recebem clique */
+.vbar { position: absolute; width: clamp(44px, 8vmin, 90px); z-index: 17; pointer-events: none; line-height: 0; }
+.vbar svg { display: block; width: 100%; height: auto; overflow: visible; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .3)); }
+.vbar .vbar-hit { fill: transparent; pointer-events: all; cursor: pointer; }
+.vbar .vbar-btn { outline: none; -webkit-tap-highlight-color: transparent; }
+.vbar .vbar-btn:focus-visible .vbar-hit { stroke: #fff; stroke-width: 2; stroke-dasharray: 5 4; }
+.vbar .vbar-face, .vbar .vbar-heart { transform-box: fill-box; transform-origin: center; }
+.vbar .vbar-fill {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(.6);
+  transition: transform .35s cubic-bezier(.3, 1.3, .5, 1);
+}
+.vbar.low .vbar-heart { animation: heartbeat .6s ease-in-out infinite; }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+
+/* balãozinho "LULA" (fica fixo na tela, então não encolhe com a cena no celular) */
+.lula-bubble {
+  position: fixed;
+  z-index: 62;
+  pointer-events: none;
+  padding: 8px 18px;
+  background: #fff;
+  color: #2a2540;
+  font: 800 22px "Segoe UI", system-ui, sans-serif;
+  letter-spacing: 1.5px;
+  border: 3px solid #2a2540;
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
+  translate: -20% calc(-100% - 20px);
+  transform-origin: 20% calc(100% + 20px);
+}
+.lula-bubble::after {
+  content: "";
+  position: absolute;
+  left: calc(20% - 8px);
+  bottom: -13px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-right: 3px solid #2a2540;
+  border-bottom: 3px solid #2a2540;
+  transform: rotate(45deg);
+}
 
 .sugarglider {
   position: absolute;
@@ -286,6 +346,30 @@ body {
 }
 @keyframes sgFloat { from { transform: translateY(-2px); } to { transform: translateY(3px); } }
 @keyframes sgTail { from { transform: rotate(-9deg); } to { transform: rotate(11deg); } }
+
+.plane {
+  position: absolute;
+  top: 4%;
+  left: 0;
+  width: clamp(300px, 46vmin, 600px);
+  border: 0;
+  background: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 7;
+  animation: planeFly 24s linear infinite;
+}
+.plane:focus-visible { outline: 3px dashed rgba(255,255,255,.9); outline-offset: 4px; border-radius: 6px; }
+.plane .art { display: block; }
+.plane svg { display: block; width: 100%; height: auto; overflow: visible; }
+.plane .prop { transform-box: fill-box; transform-origin: center; animation: spin .15s linear infinite; }
+@keyframes planeFly {
+  0%   { transform: translateX(-70vw); }
+  68%  { transform: translateX(140vw); }
+  100% { transform: translateX(140vw); }
+}
 
 .sun .rays { transform-box: fill-box; transform-origin: center; animation: spin 44s linear infinite; }
 .ship .crew { transform-box: fill-box; transform-origin: 50% 100%; transform: translateY(34px); }
@@ -405,6 +489,13 @@ body {
   border-radius: 50%;
   background: #d9bd85;
 }
+.fx-block {
+  position: fixed;
+  pointer-events: none;
+  z-index: 58;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
 .pearl {
   position: fixed;
   pointer-events: none;
@@ -457,10 +548,12 @@ body {
 .letter-modal.show { opacity: 1; }
 .letter-card {
   position: relative;
-  width: min(320px, 90vw);
+  width: min(480px, 92vw);
+  max-height: 82vh;
+  overflow-y: auto;
   background: #fdf6e3;
   border-radius: 10px;
-  padding: 40px 24px 34px;
+  padding: 40px 28px 30px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, .34);
   font-family: "Segoe UI", system-ui, sans-serif;
   color: #4a3b23;
@@ -495,12 +588,19 @@ body {
 .letter-close:hover { background: #e6d6ac; }
 .letter-msg {
   margin: 6px 0 0;
-  font-size: clamp(1.6rem, 6vw, 2.3rem);
+  font-size: clamp(1.5rem, 5vw, 2rem);
   font-weight: 800;
   letter-spacing: .5px;
   color: #c0392b;
 }
-.letter-sub { margin: 10px 0 0; font-size: .8rem; color: #a1895e; }
+.letter-body {
+  margin: 12px 0 0;
+  font-size: clamp(.92rem, 2.3vw, 1.05rem);
+  line-height: 1.6;
+  text-align: left;
+  color: #4a3b23;
+}
+.letter-sub { margin: 14px 0 0; font-size: .8rem; color: #a1895e; }
 
 .hint {
   position: absolute;
@@ -537,11 +637,6 @@ body {
 @keyframes lap {
   from { transform: translateX(-16px) scaleY(1); }
   to   { transform: translateX(16px) scaleY(1.12); }
-}
-@keyframes cloudfloat {
-  0%   { transform: translate(-10px, 0); }
-  50%  { transform: translate(10px, -7px); }
-  100% { transform: translate(-10px, 0); }
 }
 @keyframes flagsway {
   from { transform: rotate(-2.5deg) scaleY(.92); }
@@ -613,7 +708,6 @@ body {
   .runner.delivering { width: clamp(96px, 17cqmin, 156px); }
   .palm-bg  { width: clamp(120px, 24cqmin, 240px); }
   .sun      { width: clamp(80px, 13cqmin, 150px); }
-  .cloud    { width: clamp(110px, 20cqmin, 220px); }
   .ufo      { width: clamp(100px, 17cqmin, 190px); }
   .ship     { width: clamp(150px, 23cqmin, 250px); }
   .dolphin  { width: clamp(66px, 12cqmin, 138px); }
@@ -624,8 +718,11 @@ body {
   .bloco    { width: clamp(180px, 34cqmin, 285px); }
   .magicbag { width: clamp(52px, 9cqmin, 96px); }
   .boombox  { width: clamp(74px, 13cqmin, 132px); }
-  .kite     { width: clamp(38px, 6.5cqmin, 72px); }
   .sugarglider { width: clamp(26px, 4.6cqmin, 52px); }
+  .truck    { width: clamp(70px, 12cqmin, 150px); }
+  .plane    { width: clamp(300px, 46cqmin, 600px); }
+  .stars    { width: clamp(50px, 9cqmin, 100px); }
+  .vbar     { width: clamp(64px, 10cqmin, 120px); }
 
   /* pedido do usuário: descer um pouco o navio e o sugar glider —
      só no celular (a caixa 800x1000 tem mais espaço vertical sobrando
@@ -638,13 +735,16 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cloud, .ship, .dog, .ufo, .palm-bg, .dolphin, .kite,
+  .ship, .dog, .ufo, .palm-bg, .dolphin,
   .sugarglider, .sugarglider .art, .sugarglider .sg-tail,
   .runner, .runner .art, .runner .thigh-f, .runner .thigh-b, .runner .shin-f, .runner .shin-b,
   .runner .arm-f, .runner .arm-b, .runner .hair,
   .dog .tail, .dog .ear-floppy, .magicbag .bag-glow, .bloco .foliao,
   .sun .rays, .dolphin .dolphin-body, .palm .fronds, .ship .flag, .ship .flag-cloth, .ship .sail,
   .ufo .antenna, .ufo .lights circle,
+  .plane, .plane .prop,
+  .vbar.low .vbar-heart, .vbar .vbar-fill,
+  .stars .star-sprite,
   .sea::before, .shore, .hint {
     animation: none !important;
   }

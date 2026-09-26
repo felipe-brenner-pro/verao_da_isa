@@ -188,6 +188,37 @@
     }
   }
 
+  /* explosão de blocos coloridos (estilo jogo "Loop Sort") */
+  const BLOCK_COLORS = ["#ff5a5f", "#ffd23f", "#3fa7ff", "#3fb063", "#c86dd7", "#ff8a3d"];
+  function blockBurst(x, y, count) {
+    if (reduceMotion) return;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement("span");
+      s.className = "fx-block";
+      const size = rand(6, 14);
+      s.style.left = x + "px";
+      s.style.top = y + "px";
+      s.style.width = size + "px";
+      s.style.height = size + "px";
+      s.style.background = pick(BLOCK_COLORS);
+      document.body.appendChild(s);
+      const ang = rand(-Math.PI * 0.95, -Math.PI * 0.05);
+      const dist = rand(50, 160);
+      const dx = Math.cos(ang) * dist;
+      const dy = Math.sin(ang) * dist;
+      const rot = rand(-360, 360);
+      const a = s.animate(
+        [
+          { transform: "translate(0,0) rotate(0)", opacity: 1 },
+          { transform: `translate(${dx * 0.6}px, ${dy - 18}px) rotate(${rot * 0.6}deg)`, opacity: 1, offset: 0.5 },
+          { transform: `translate(${dx}px, ${dy + 70}px) rotate(${rot}deg)`, opacity: 0 },
+        ],
+        { duration: rand(700, 1150), easing: "ease-out" }
+      );
+      a.onfinish = a.oncancel = () => s.remove();
+    }
+  }
+
   /* ---------------- ligar elementos ---------------- */
   function tap(sel, fn) {
     document.querySelectorAll(sel).forEach((el) => {
@@ -217,37 +248,6 @@
         [{ filter: "brightness(1)" }, { filter: "brightness(1.12)" }, { filter: "brightness(1)" }],
         { duration: 500 }
       );
-  });
-
-  /* Nuvens -> chuvinha */
-  tap(".cloud", (el) => {
-    const b = el.getBoundingClientRect();
-    art(el).animate(
-      [
-        { transform: "translateX(0)" },
-        { transform: "translateX(-4px)" },
-        { transform: "translateX(4px)" },
-        { transform: "translateX(0)" },
-      ],
-      { duration: 320 }
-    );
-    for (let i = 0; i < 10; i++) {
-      const d = document.createElement("span");
-      d.className = "fx";
-      d.textContent = "💧";
-      d.style.left = b.left + rand(12, b.width - 12) + "px";
-      d.style.top = b.bottom - 8 + "px";
-      d.style.fontSize = rand(11, 17) + "px";
-      document.body.appendChild(d);
-      const a = d.animate(
-        [
-          { transform: "translateY(0)", opacity: 1 },
-          { transform: `translateY(${rand(90, 170)}px)`, opacity: 0 },
-        ],
-        { duration: rand(700, 1200), easing: "ease-in", delay: i * 45 }
-      );
-      a.onfinish = a.oncancel = () => d.remove();
-    }
   });
 
   /* Contador regressivo para o Verão da Isa (hemisfério sul ~21/dez) */
@@ -1232,32 +1232,6 @@
     }, durMs + 150);
   });
 
-  /* Pipa -> dá um loop e a rabiola chicoteia */
-  tap(".kite", (el) => {
-    art(el).animate(
-      [
-        { transform: "translate(0,0) rotate(0)" },
-        { transform: "translate(26px,-18px) rotate(180deg)", offset: 0.4 },
-        { transform: "translate(4px,-30px) rotate(360deg)", offset: 0.7 },
-        { transform: "translate(0,0) rotate(360deg)" },
-      ],
-      { duration: 1300, easing: "ease-in-out" }
-    );
-    const tail = el.querySelector(".kite-tail");
-    if (tail)
-      tail.animate(
-        [
-          { transform: "rotate(-8deg)" },
-          { transform: "rotate(10deg)" },
-          { transform: "rotate(-6deg)" },
-          { transform: "rotate(0)" },
-        ],
-        { duration: 320, iterations: 4 }
-      );
-    const c = centre(el);
-    fx(c.x, c.y, ["✨", "💨"], 5, { min: 20, max: 55 });
-  });
-
   /* Sugar glider -> ao clicar, abre bem o patágio, ganha altura e "chia" */
   function sgChirp() {
     try {
@@ -1308,6 +1282,255 @@
     setTimeout(() => (sgBusy = false), 1000);
   });
 
+  /* Avião com faixa -> balança as asas */
+  let planeBusy = false;
+  tap(".plane", (el) => {
+    if (planeBusy) return;
+    planeBusy = true;
+    art(el).animate(
+      [
+        { transform: "rotate(0deg)" },
+        { transform: "rotate(-6deg)", offset: 0.3 },
+        { transform: "rotate(4deg)", offset: 0.62 },
+        { transform: "rotate(0deg)" },
+      ],
+      { duration: 700, easing: "ease-in-out" }
+    );
+    setTimeout(() => (planeBusy = false), 700);
+  });
+
+  /* Estrelas do teto -> surge a 13ª estrela, que solta um balãozinho "LULA" e some */
+  function starChime() {
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      soundCtx = soundCtx || new AC();
+      if (soundCtx.state === "suspended") soundCtx.resume();
+      const ctx = soundCtx;
+      [1319, 1760, 2093].forEach((f, i) => {
+        const t = ctx.currentTime + 0.02 + i * 0.09;
+        const o = ctx.createOscillator();
+        o.type = "sine";
+        o.frequency.setValueAtTime(f, t);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.11, t + 0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start(t);
+        o.stop(t + 0.24);
+      });
+    } catch (e) {}
+  }
+  let starsBusy = false;
+  tap(".stars", (el) => {
+    if (starsBusy) return;
+    const s13 = el.querySelector(".star13");
+    const inner = el.querySelector(".star13-in");
+    if (!s13 || !inner) return;
+    starsBusy = true;
+    if (!reduceMotion) starChime();
+
+    // 1) a 13ª estrela surge girando
+    s13.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, fill: "forwards" });
+    inner.animate(
+      [
+        { transform: "scale(0) rotate(-140deg)" },
+        { transform: "scale(1.5) rotate(20deg)", offset: 0.6 },
+        { transform: "scale(1) rotate(0)" },
+      ],
+      { duration: 450, easing: "ease-out", fill: "forwards" }
+    );
+
+    // 2) ela solta o balãozinho "LULA" (estoura pra fora com um brilho)
+    setTimeout(() => {
+      const r = s13.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const bub = document.createElement("div");
+      bub.className = "lula-bubble";
+      bub.textContent = "LULA";
+      bub.style.left = cx + "px";
+      bub.style.top = cy + "px";
+      document.body.appendChild(bub);
+      bub.animate(
+        [
+          { transform: "scale(.1)", opacity: 0 },
+          { transform: "scale(1.3)", opacity: 1, offset: 0.55 },
+          { transform: "scale(1)", opacity: 1 },
+        ],
+        { duration: 380, easing: "ease-out", fill: "forwards" }
+      );
+      fx(cx, cy, ["✨", "⭐", "🌟"], 12, { min: 30, max: 95 });
+
+      // 3) o balão estoura e some; a estrela some junto
+      setTimeout(() => {
+        const out = bub.animate(
+          [
+            { transform: "scale(1)", opacity: 1 },
+            { transform: "scale(1.6)", opacity: 0 },
+          ],
+          { duration: 260, easing: "ease-in", fill: "forwards" }
+        );
+        out.onfinish = () => bub.remove();
+        fx(cx, cy - 20, ["✨"], 6, { min: 20, max: 60 });
+        inner.animate(
+          [
+            { transform: "scale(1) rotate(0)", opacity: 1 },
+            { transform: "scale(0) rotate(140deg)", opacity: 0 },
+          ],
+          { duration: 320, easing: "ease-in", fill: "forwards" }
+        );
+        s13.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 320, fill: "forwards" });
+        setTimeout(() => {
+          s13.getAnimations().forEach((a) => a.cancel());
+          inner.getAnimations().forEach((a) => a.cancel());
+          starsBusy = false;
+        }, 360);
+      }, 380 + 1100);
+    }, 420);
+  });
+
+  /* Barrinha de vida vertical: "+%" sobe 1, "−%" desce 1 (100 degraus) */
+  (function vbar() {
+    const box = document.querySelector(".vbar");
+    if (!box) return;
+    const fill = box.querySelector(".vbar-fill");
+    const meter = box.querySelector(".vbar-meter");
+    const heart = box.querySelector(".vbar-heart");
+    const svg = box.querySelector("svg");
+    const STEPS = 100;
+    let lvl = 50 + Math.floor(Math.random() * 26); // começa aleatório entre 50% e 75%; nada é salvo
+    const paint = () => {
+      fill.style.transform = "scaleY(" + lvl / STEPS + ")";
+      meter.setAttribute("aria-valuenow", String(lvl));
+      box.classList.toggle("low", lvl > 0 && lvl <= 30);
+    };
+    paint();
+
+    function blip(up) {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        soundCtx = soundCtx || new AC();
+        if (soundCtx.state === "suspended") soundCtx.resume();
+        const ctx = soundCtx;
+        const t = ctx.currentTime + 0.01;
+        const o = ctx.createOscillator();
+        o.type = "square";
+        o.frequency.setValueAtTime(up ? 520 : 420, t);
+        o.frequency.exponentialRampToValueAtTime(up ? 900 : 220, t + 0.12);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.07, t + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start(t);
+        o.stop(t + 0.17);
+      } catch (e) {}
+    }
+
+    tap(".vbar-btn", (btn) => {
+      const d = Number(btn.dataset.d);
+      const face = btn.querySelector(".vbar-face");
+      const c = centre(btn);
+      if (face)
+        face.animate(
+          [{ transform: "scale(1)" }, { transform: "scale(.82)" }, { transform: "scale(1.08)" }, { transform: "scale(1)" }],
+          { duration: 260, easing: "ease-out" }
+        );
+      const next = Math.max(0, Math.min(STEPS, lvl + d));
+      if (next === lvl) {
+        // já no limite: a barra treme
+        if (!reduceMotion) blip(false);
+        svg.animate(
+          [{ transform: "translateX(0)" }, { transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "translateX(0)" }],
+          { duration: 240 }
+        );
+        return;
+      }
+      lvl = next;
+      paint();
+      if (!reduceMotion) blip(d > 0);
+      heart.animate(
+        [{ transform: "scale(1)" }, { transform: d > 0 ? "scale(1.3)" : "scale(.75)" }, { transform: "scale(1)" }],
+        { duration: 320, easing: "ease-out" }
+      );
+      fx(c.x, c.y, d > 0 ? ["💖", "✨"] : ["💔"], 2, { up: true, min: 20, max: 55 });
+      if (lvl === STEPS) {
+        const r = svg.getBoundingClientRect();
+        fx(r.left + r.width / 2, r.top + r.height * 0.45, ["✨", "🌟", "💖"], 12, { min: 30, max: 80 });
+      }
+    });
+    box.querySelectorAll(".vbar-btn").forEach((b) =>
+      b.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          b.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        }
+      })
+    );
+  })();
+
+  /* Caminhãozinho (Loop Sort) -> buzina + "loop" + embaralha as cores da carga */
+  function truckHonk() {
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      soundCtx = soundCtx || new AC();
+      if (soundCtx.state === "suspended") soundCtx.resume();
+      const ctx = soundCtx;
+      [0, 0.16].forEach((off) => {
+        const t = ctx.currentTime + 0.02 + off;
+        const o = ctx.createOscillator();
+        o.type = "square";
+        o.frequency.setValueAtTime(440, t);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.09, t + 0.015);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start(t);
+        o.stop(t + 0.13);
+      });
+    } catch (e) {}
+  }
+  let truckBusy = false;
+  tap(".truck", (el) => {
+    if (truckBusy) return;
+    truckBusy = true;
+    if (!reduceMotion) truckHonk();
+
+    const blocks = el.querySelectorAll(".truck-cargo rect");
+    if (blocks.length) {
+      const cols = Array.from(blocks, (r) => r.getAttribute("fill"));
+      const shuffled = cols.slice().reverse();
+      blocks.forEach((r, i) => r.setAttribute("fill", shuffled[i]));
+    }
+    el.querySelectorAll(".truck-wheel").forEach((w) => {
+      w.animate([{ transform: "rotate(0)" }, { transform: "rotate(720deg)" }], {
+        duration: 700,
+        easing: "ease-out",
+      });
+    });
+    art(el).animate(
+      [
+        { transform: "translate(0,0) rotate(0)" },
+        { transform: "translate(6px,-22px) rotate(180deg)", offset: 0.5 },
+        { transform: "translate(0,0) rotate(360deg)" },
+      ],
+      { duration: 700, easing: "ease-in-out" }
+    );
+    const b = el.getBoundingClientRect();
+    if (!reduceMotion) sandPuff(b.left + b.width * 0.5, b.bottom - 4);
+    const c = centre(el);
+    blockBurst(c.x, c.y, 26);
+    setTimeout(() => (truckBusy = false), 750);
+  });
+
   /* Carta "Oi Isa" — pop-up */
   function openLetterModal() {
     if (document.querySelector(".letter-modal")) return;
@@ -1316,7 +1539,8 @@
     modal.innerHTML =
       '<div class="letter-card" role="dialog" aria-label="Carta">' +
       '<button class="letter-close" aria-label="Fechar">✕</button>' +
-      '<p class="letter-msg">Oi Isa</p>' +
+      '<p class="letter-msg">Isa,</p>' +
+      '<p class="letter-body">desde aquele roubo de chinelo e uma cutucada despretensiosa, a vida parece ter ficado mais leve. Foi teu jeito inteligente, criativo, divertido e astucioso que foi me conquistando aos poucos. Vieram os presentes de casa nova, as comidinhas gostosas entregues de surpresa, até um passeio de carro pela zona sul. Tu sabe que em momentos de angústia, encontrei em ti paz e tranquilidade. Entre risadas e tagarelices, entre beijos e abraços, fui percebendo o quanto você se tornou importante pra mim. Estou muito feliz de te ter por perto. Te amo muito.</p>' +
       '<p class="letter-sub">✿</p>' +
       "</div>";
     document.body.appendChild(modal);
