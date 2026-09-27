@@ -84,6 +84,21 @@ body {
   animation: shoreRun 20s linear infinite;
 }
 .runner:focus-visible { outline: 3px dashed rgba(255,255,255,.9); outline-offset: 4px; border-radius: 6px; }
+.runner-hit {
+  position: absolute;
+  top: 62%;
+  left: 4%;
+  width: clamp(62px, 9vmin, 110px);
+  aspect-ratio: 112 / 132;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  z-index: 20; /* sempre acima do coqueiral/bloco -- só a área de toque; a arte visível continua no .runner, no lugar de sempre (atrás do coqueiral) */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: shoreRun 20s linear infinite;
+}
 .runner.delivering {
   top: auto;
   bottom: 6.5%;
@@ -706,6 +721,7 @@ body {
      idênticas às do desktop. */
   .runner            { width: clamp(62px, 9cqmin, 110px); }
   .runner.delivering { width: clamp(96px, 17cqmin, 156px); }
+  .runner-hit        { width: clamp(62px, 9cqmin, 110px); }
   .palm-bg  { width: clamp(120px, 24cqmin, 240px); }
   .sun      { width: clamp(80px, 13cqmin, 150px); }
   .ufo      { width: clamp(100px, 17cqmin, 190px); }
@@ -737,7 +753,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ship, .dog, .ufo, .palm-bg, .dolphin,
   .sugarglider, .sugarglider .art, .sugarglider .sg-tail,
-  .runner, .runner .art, .runner .thigh-f, .runner .thigh-b, .runner .shin-f, .runner .shin-b,
+  .runner, .runner-hit, .runner .art, .runner .thigh-f, .runner .thigh-b, .runner .shin-f, .runner .shin-b,
   .runner .arm-f, .runner .arm-b, .runner .hair,
   .dog .tail, .dog .ear-floppy, .magicbag .bag-glow, .bloco .foliao,
   .sun .rays, .dolphin .dolphin-body, .palm .fronds, .ship .flag, .ship .flag-cloth, .ship .sail,

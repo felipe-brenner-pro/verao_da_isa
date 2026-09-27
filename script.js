@@ -1661,6 +1661,19 @@
     }, ENTER_DELAY);
   }
 
+  /* área de toque invisível do corredor (sempre por cima do coqueiral/bloco,
+     sem mudar a camada visível dele) -- só repassa o clique pro .runner de
+     verdade, que continua com toda a lógica de sempre */
+  (function runnerHitProxy() {
+    const hit = document.querySelector(".runner-hit");
+    const real = document.querySelector(".runner");
+    if (!hit || !real) return;
+    hit.addEventListener("click", (e) => {
+      e.stopPropagation();
+      real.click();
+    });
+  })();
+
   let runnerClicks = 0;
   let runnerArmed = false;
   let runnerDone = false;
