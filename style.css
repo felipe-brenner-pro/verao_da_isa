@@ -71,7 +71,7 @@ body {
 /* corredor sem camisa ao fundo */
 .runner {
   position: absolute;
-  top: 62%;
+  top: 67%;
   left: 4%;
   width: clamp(62px, 9vmin, 110px);
   border: 0;
@@ -86,7 +86,7 @@ body {
 .runner:focus-visible { outline: 3px dashed rgba(255,255,255,.9); outline-offset: 4px; border-radius: 6px; }
 .runner-hit {
   position: absolute;
-  top: 62%;
+  top: 67%;
   left: 4%;
   width: clamp(62px, 9vmin, 110px);
   aspect-ratio: 112 / 132;
@@ -748,6 +748,37 @@ body {
      regra do CSS). */
   .el.ship     { top: 40% !important; }
   .sugarglider { top: 40%; }
+
+  /* BUG: "vw"/"vh" num filho de .scene sempre olham pro viewport REAL, não
+     pro palco de 800x1000 — então o deslocamento (translateX/translate em
+     vw/vh) sai encolhido pelo mesmo fator do scale() do .scene. Resultado:
+     no celular o corredor "saía de cena" em 108vw, mas isso virava só
+     ~55% da tela de verdade — ele nunca chegava a sumir, ficava preso no
+     meio (rodando a perna no lugar) e a checagem de "saiu da tela"
+     (rect.left >= innerWidth) nunca batia, travando a entrega da carta.
+     Sugarglider e avião tinham o mesmo problema (saem menos do que
+     deveriam antes de reaparecer). Correção: dividir os valores em vw/vh
+     por --sc, cancelando o encolhimento do scale() só nesses trajetos. */
+  .runner, .runner-hit { animation-name: shoreRunMobile; }
+  .sugarglider { animation-name: sgGlideMobile; }
+  .plane { animation-name: planeFlyMobile; }
+  @keyframes shoreRunMobile {
+    0%   { transform: translateX(calc(-20vw / var(--sc))); }
+    58%  { transform: translateX(calc(108vw / var(--sc))); }
+    100% { transform: translateX(calc(108vw / var(--sc))); }
+  }
+  @keyframes sgGlideMobile {
+    0%   { transform: translate(calc(-16vw / var(--sc)), calc(-1vh / var(--sc))) rotate(-4deg); }
+    12%  { transform: translate(calc(-4vw / var(--sc)), 0) rotate(-2deg); }
+    55%  { transform: translate(calc(46vw / var(--sc)), calc(2vh / var(--sc))) rotate(3deg); }
+    78%  { transform: translate(calc(104vw / var(--sc)), calc(5vh / var(--sc))) rotate(-1deg); }
+    100% { transform: translate(calc(104vw / var(--sc)), calc(5vh / var(--sc))) rotate(-1deg); }
+  }
+  @keyframes planeFlyMobile {
+    0%   { transform: translateX(calc(-70vw / var(--sc))); }
+    68%  { transform: translateX(calc(140vw / var(--sc))); }
+    100% { transform: translateX(calc(140vw / var(--sc))); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
